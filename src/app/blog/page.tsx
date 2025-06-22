@@ -11,7 +11,7 @@ export default function BlogPage() {
       <div className="text-center mb-16">
         <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tighter">Our Blog</h1>
         <p className="max-w-3xl mx-auto mt-4 text-lg text-muted-foreground">
-          Insights, tutorials, and stories from the world of Quantum AI.
+          Insights, tutorials, and stories from the world of Quantum Computing.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

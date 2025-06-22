@@ -12,7 +12,7 @@ const Footer = () => {
               <span className="font-bold font-headline text-xl">AIU</span>
             </Link>
           <p className="text-center text-sm text-muted-foreground max-w-md mx-auto">
-            Exploring the frontiers of Quantum Artificial Intelligence. A student-led initiative at Alamein International University.
+            Exploring the frontiers of Quantum Computing. A student-led initiative at Alamein International University.
           </p>
           <div className="flex justify-center space-x-6 mt-6">
             <a href="#" className="text-muted-foreground hover:text-primary" aria-label="Twitter">

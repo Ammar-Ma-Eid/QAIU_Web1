@@ -6,8 +6,8 @@ import Footer from '@/components/footer';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'AIU - Quantum AI at Alamein International University',
-  description: 'The official website for the Quantum Artificial Intelligence at Alamein International University student club.',
+  title: 'AIU - Quantum Computing at Alamein International University',
+  description: 'The official website for the Quantum Computing at Alamein International University student club.',
 };
 
 export default function RootLayout({
