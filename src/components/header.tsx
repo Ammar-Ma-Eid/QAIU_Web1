@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/logo';
 import { Menu } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { useState } from 'react';
+// import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+// import { useState } from 'react';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -14,7 +14,7 @@ const navLinks = [
 ];
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -42,39 +42,11 @@ const Header = () => {
           </Button>
         </div>
         <div className="md:hidden">
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+            {/* The mobile menu has been temporarily disabled for debugging. */}
+            <Button variant="ghost" size="icon">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Open menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right">
-                <Link href="/" className="flex items-center gap-3 mb-10" onClick={() => setIsOpen(false)}>
-                    <Logo />
-                </Link>
-              <nav className="flex flex-col gap-6 text-lg font-medium">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="transition-colors hover:text-primary"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-                <div className="border-t pt-6 flex flex-col gap-4">
-                    <Button variant="outline" asChild>
-                        <a href="https://qworld.net/" target="_blank" rel="noopener noreferrer">QWorld</a>
-                    </Button>
-                    <Button variant="default" asChild>
-                        <a href="https://qegypt.org/" target="_blank" rel="noopener noreferrer">QEgypt</a>
-                    </Button>
-                </div>
-              </nav>
-            </SheetContent>
-          </Sheet>
+            </Button>
         </div>
       </div>
     </header>
