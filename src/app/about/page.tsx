@@ -14,9 +14,9 @@ export default function AboutPage() {
       <InteractiveBackground />
       <div className="relative container mx-auto px-4 py-16 md:py-24">
         <div className="text-center mb-16">
-          <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tighter">About QAIU</h1>
+          <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tighter">About AIU</h1>
           <p className="max-w-3xl mx-auto mt-4 text-lg text-muted-foreground">
-            We are a passionate group of students at Cairo University dedicated to exploring the vast potential of Quantum Artificial Intelligence.
+            We are a passionate group of students at Alamein International University dedicated to exploring the vast potential of Quantum Artificial Intelligence.
           </p>
         </div>
 

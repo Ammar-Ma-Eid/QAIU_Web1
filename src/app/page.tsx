@@ -10,7 +10,7 @@ export default function Home() {
       <InteractiveBackground />
       <div className="relative container mx-auto px-4 py-20 md:py-32 text-center">
         <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">
-          Quantum AI at <span className="text-primary">Cairo University</span>
+          Quantum AI at <span className="text-primary">Alamein International University</span>
         </h1>
         <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8">
           Exploring the synergy between quantum computing and artificial intelligence to pioneer the next wave of technological innovation.
