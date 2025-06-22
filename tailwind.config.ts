@@ -8,10 +8,17 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        headline: ['Space Grotesk', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
@@ -48,23 +55,6 @@ export default {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        chart: {
-          '1': 'hsl(var(--chart-1))',
-          '2': 'hsl(var(--chart-2))',
-          '3': 'hsl(var(--chart-3))',
-          '4': 'hsl(var(--chart-4))',
-          '5': 'hsl(var(--chart-5))',
-        },
-        sidebar: {
-          DEFAULT: 'hsl(var(--sidebar-background))',
-          foreground: 'hsl(var(--sidebar-foreground))',
-          primary: 'hsl(var(--sidebar-primary))',
-          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-          accent: 'hsl(var(--sidebar-accent))',
-          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-          border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))',
-        },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -88,10 +78,25 @@ export default {
             height: '0',
           },
         },
+        'float-1': {
+          '0%, 100%': { transform: 'translateY(-5%) rotate(-3deg)' },
+          '50%': { transform: 'translateY(5%) rotate(3deg)' },
+        },
+        'float-2': {
+            '0%, 100%': { transform: 'translate(150px, 80px) rotate(5deg)' },
+            '50%': { transform: 'translate(160px, 70px) rotate(-5deg)' },
+        },
+        'float-3': {
+            '0%, 100%': { transform: 'translate(-180px, -60px) rotate(-4deg)' },
+            '50%': { transform: 'translate(-190px, -50px) rotate(4deg)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'float-1': 'float-1 8s ease-in-out infinite',
+        'float-2': 'float-2 10s ease-in-out infinite 2s',
+        'float-3': 'float-3 12s ease-in-out infinite 1s',
       },
     },
   },
