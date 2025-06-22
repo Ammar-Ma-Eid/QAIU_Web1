@@ -41,7 +41,6 @@ export default function LoginPage() {
                 id="username"
                 name="username"
                 type="text"
-                placeholder="adminQAIU_2025"
                 required
                 autoComplete="username"
               />
