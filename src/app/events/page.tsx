@@ -1,9 +1,10 @@
 'use client'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { upcomingEvents, pastEvents } from '@/lib/data';
-import { Calendar } from 'lucide-react';
+import { Calendar, ArrowRight } from 'lucide-react';
 import { format } from 'date-fns';
+import Link from 'next/link';
 
 export default function EventsPage() {
   return (
@@ -23,19 +24,27 @@ export default function EventsPage() {
         <TabsContent value="upcoming">
           <div className="grid gap-6 mt-8">
             {upcomingEvents.length > 0 ? (
-              upcomingEvents.map((event, index) => (
-                <Card key={index} className="bg-card/60 backdrop-blur-sm border-border/50 shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="font-headline text-2xl">{event.title}</CardTitle>
-                    <div className="flex items-center text-sm text-muted-foreground pt-2">
-                      <Calendar className="mr-2 h-4 w-4" />
-                      <span>{format(new Date(event.date), 'PPP')}</span>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">{event.description}</p>
-                  </CardContent>
-                </Card>
+              upcomingEvents.map((event) => (
+                 <Link href={`/events/${event.id}`} key={event.id} className="group block">
+                  <Card className="bg-card/60 backdrop-blur-sm border-border/50 shadow-lg h-full transition-all group-hover:border-primary/50 group-hover:shadow-xl flex flex-col">
+                    <CardHeader>
+                      <CardTitle className="font-headline text-2xl">{event.title}</CardTitle>
+                      <div className="flex items-center text-sm text-muted-foreground pt-2">
+                        <Calendar className="mr-2 h-4 w-4" />
+                        <span>{format(new Date(event.date), 'PPP')}</span>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                      <p className="text-muted-foreground line-clamp-3">{event.description}</p>
+                    </CardContent>
+                    <CardFooter>
+                      <div className="text-primary font-medium flex items-center transition-transform group-hover:translate-x-1">
+                        View Details
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </div>
+                    </CardFooter>
+                  </Card>
+                </Link>
               ))
             ) : (
                 <div className="text-center py-16 text-muted-foreground bg-card/60 backdrop-blur-sm border-border/50 rounded-lg shadow-lg">
@@ -46,19 +55,27 @@ export default function EventsPage() {
         </TabsContent>
         <TabsContent value="past">
           <div className="grid gap-6 mt-8">
-             {pastEvents.map((event, index) => (
-              <Card key={index} className="bg-card/60 backdrop-blur-sm border-border/50 opacity-80 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="font-headline text-2xl">{event.title}</CardTitle>
-                   <div className="flex items-center text-sm text-muted-foreground pt-2">
-                    <Calendar className="mr-2 h-4 w-4" />
-                    <span>{format(new Date(event.date), 'PPP')}</span>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{event.description}</p>
-                </CardContent>
-              </Card>
+             {pastEvents.map((event) => (
+               <Link href={`/events/${event.id}`} key={event.id} className="group block">
+                <Card className="bg-card/60 backdrop-blur-sm border-border/50 opacity-80 shadow-lg h-full transition-all group-hover:opacity-100 group-hover:border-primary/50 group-hover:shadow-xl flex flex-col">
+                  <CardHeader>
+                    <CardTitle className="font-headline text-2xl">{event.title}</CardTitle>
+                    <div className="flex items-center text-sm text-muted-foreground pt-2">
+                      <Calendar className="mr-2 h-4 w-4" />
+                      <span>{format(new Date(event.date), 'PPP')}</span>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <p className="text-muted-foreground line-clamp-3">{event.description}</p>
+                  </CardContent>
+                  <CardFooter>
+                    <div className="text-primary font-medium flex items-center transition-transform group-hover:translate-x-1">
+                      View Details
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                  </CardFooter>
+                </Card>
+               </Link>
             ))}
           </div>
         </TabsContent>

@@ -8,13 +8,65 @@ export const members = [
 ];
 
 export const upcomingEvents = [
-    { title: 'Intro to Quantum Computing Workshop', date: '2024-10-26T10:00:00Z', description: 'Join us for a beginner-friendly workshop on the basics of quantum computing and its applications.' },
-    { title: 'Qiskit Hackathon 2024', date: '2024-11-15T09:00:00Z', description: 'A 2-day hackathon focused on solving real-world problems using IBM\'s Qiskit.' },
+    { 
+      id: 'intro-to-quantum-workshop',
+      title: 'Intro to Quantum Computing Workshop', 
+      date: '2024-10-26T10:00:00Z', 
+      description: 'Join us for a beginner-friendly workshop on the basics of quantum computing and its applications. This session will cover the fundamental concepts of qubits, superposition, and entanglement, providing a solid foundation for anyone interested in the quantum realm.', 
+      imageUrl: 'https://placehold.co/1200x600',
+      dataAiHint: 'workshop classroom',
+      location: 'AIU Campus, Auditorium B',
+      gallery: [
+        { src: 'https://placehold.co/600x400', alt: 'Students learning', dataAiHint: 'students learning' },
+        { src: 'https://placehold.co/600x400', alt: 'Presenter on stage', dataAiHint: 'presentation stage' },
+        { src: 'https://placehold.co/600x400', alt: 'Group discussion', dataAiHint: 'group discussion' },
+      ]
+    },
+    { 
+      id: 'qiskit-hackathon-2024',
+      title: 'Qiskit Hackathon 2024', 
+      date: '2024-11-15T09:00:00Z', 
+      description: 'A 2-day hackathon focused on solving real-world problems using IBM\'s Qiskit. Participants will form teams and compete for prizes by developing innovative quantum applications. Mentors from industry and academia will be available to guide teams.', 
+      imageUrl: 'https://placehold.co/1200x600',
+      dataAiHint: 'hackathon event',
+      location: 'Online',
+      gallery: [
+        { src: 'https://placehold.co/600x400', alt: 'Team coding', dataAiHint: 'team coding' },
+        { src: 'https://placehold.co/600x400', alt: 'Winning team', dataAiHint: 'award ceremony' },
+        { src: 'https://placehold.co/600x400', alt: 'Mentoring session', dataAiHint: 'mentor student' },
+      ]
+    },
 ];
 
 export const pastEvents = [
-    { title: 'Panel: The Future of AI and Quantum', date: '2024-05-20T14:00:00Z', description: 'A discussion with industry experts on the synergy between artificial intelligence and quantum computing.' },
-    { title: 'Quantum Machine Learning Seminar', date: '2024-04-12T16:00:00Z', description: 'A deep dive into the algorithms and potential of Quantum Machine Learning (QML).' },
+    { 
+      id: 'future-of-ai-panel',
+      title: 'Panel: The Future of AI and Quantum', 
+      date: '2024-05-20T14:00:00Z', 
+      description: 'A discussion with industry experts on the synergy between artificial intelligence and quantum computing. We explored the potential breakthroughs and challenges in this exciting intersection, followed by a lively Q&A session with the audience.', 
+      imageUrl: 'https://placehold.co/1200x600',
+      dataAiHint: 'panel discussion',
+      location: 'AIU Main Hall',
+      gallery: [
+        { src: 'https://placehold.co/600x400', alt: 'Panelists on stage', dataAiHint: 'panel discussion' },
+        { src: 'https://placehold.co/600x400', alt: 'Audience Q&A', dataAiHint: 'audience conference' },
+        { src: 'https://placehold.co/600x400', alt: 'Networking event', dataAiHint: 'networking event' },
+      ]
+    },
+    { 
+      id: 'qml-seminar',
+      title: 'Quantum Machine Learning Seminar', 
+      date: '2024-04-12T16:00:00Z', 
+      description: 'A deep dive into the algorithms and potential of Quantum Machine Learning (QML). The seminar covered topics such as quantum kernels, variational quantum classifiers, and their potential applications in fields like drug discovery and financial modeling.', 
+      imageUrl: 'https://placehold.co/1200x600',
+      dataAiHint: 'seminar presentation',
+      location: 'Faculty of CS, Room 301',
+      gallery: [
+        { src: 'https://placehold.co/600x400', alt: 'Technical diagram on screen', dataAiHint: 'technical diagram' },
+        { src: 'https://placehold.co/600x400', alt: 'Speaker presenting', dataAiHint: 'lecturer presentation' },
+        { src: 'https://placehold.co/600x400', alt: 'Engaged audience', dataAiHint: 'audience lecture' },
+      ]
+    },
 ];
 
 export const blogPosts = [
