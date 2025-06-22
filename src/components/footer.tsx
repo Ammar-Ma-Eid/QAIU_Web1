@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="flex justify-center items-center flex-col">
            <Link href="/" className="flex items-center gap-3 mb-4">
               <Logo />
-              <span className="font-bold font-headline text-xl">AIU</span>
+              <span className="font-bold font-headline text-xl">QAIU</span>
             </Link>
           <p className="text-center text-sm text-muted-foreground max-w-md mx-auto">
             Exploring the frontiers of Quantum Computing. A student-led initiative at Alamein International University.
@@ -30,7 +30,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 border-t border-border pt-8 text-center text-xs text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} AIU. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} QAIU. All rights reserved.</p>
         </div>
       </div>
     </footer>

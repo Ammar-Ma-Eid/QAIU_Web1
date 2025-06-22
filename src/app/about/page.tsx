@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { members } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import InteractiveBackground from '@/components/interactive-background';
+import { Linkedin, Mail } from 'lucide-react';
 
 export default function AboutPage() {
   const supervisor = members.find(m => m.role === 'Supervisor');
@@ -14,7 +15,7 @@ export default function AboutPage() {
       <InteractiveBackground />
       <div className="relative container mx-auto px-4 py-16 md:py-24">
         <div className="text-center mb-16">
-          <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tighter">About AIU</h1>
+          <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tighter">About QAIU</h1>
           <p className="max-w-3xl mx-auto mt-4 text-lg text-muted-foreground">
             We are a passionate group of students at Alamein International University dedicated to exploring the vast potential of Quantum Computing.
           </p>
@@ -33,6 +34,16 @@ export default function AboutPage() {
                 <CardContent>
                   <CardTitle className="font-headline text-2xl">{supervisor.name}</CardTitle>
                   <Badge variant="secondary" className="mt-2 text-base">{supervisor.role}</Badge>
+                  <div className="flex justify-center gap-4 mt-4">
+                    <a href={`mailto:${supervisor.email}`} className="text-muted-foreground hover:text-primary">
+                      <span className="sr-only">Email</span>
+                      <Mail className="h-5 w-5" />
+                    </a>
+                    <a href={supervisor.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">
+                      <span className="sr-only">LinkedIn</span>
+                      <Linkedin className="h-5 w-5" />
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
             )}
@@ -46,6 +57,16 @@ export default function AboutPage() {
                 <CardContent>
                   <CardTitle className="font-headline text-2xl">{president.name}</CardTitle>
                   <Badge variant="default" className="mt-2 text-base">{president.role}</Badge>
+                  <div className="flex justify-center gap-4 mt-4">
+                    <a href={`mailto:${president.email}`} className="text-muted-foreground hover:text-primary">
+                      <span className="sr-only">Email</span>
+                      <Mail className="h-5 w-5" />
+                    </a>
+                    <a href={president.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">
+                      <span className="sr-only">LinkedIn</span>
+                      <Linkedin className="h-5 w-5" />
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
             )}
@@ -63,6 +84,16 @@ export default function AboutPage() {
                 <CardContent className="pt-4 px-2 pb-4">
                   <h3 className="font-headline text-lg font-semibold">{member.name}</h3>
                   <p className="text-sm text-muted-foreground">{member.role}</p>
+                   <div className="flex justify-center gap-3 mt-2">
+                    <a href={`mailto:${member.email}`} className="text-muted-foreground hover:text-primary">
+                      <span className="sr-only">Email</span>
+                      <Mail className="h-4 w-4" />
+                    </a>
+                    <a href={member.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">
+                      <span className="sr-only">LinkedIn</span>
+                      <Linkedin className="h-4 w-4" />
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
             ))}
