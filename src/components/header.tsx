@@ -21,7 +21,6 @@ const Header = () => {
       <div className="container flex h-16 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
           <Logo />
-          <span className="font-bold font-headline text-xl">QAIU</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           {navLinks.map((link) => (
@@ -53,7 +52,6 @@ const Header = () => {
             <SheetContent side="right">
                 <Link href="/" className="flex items-center gap-3 mb-10" onClick={() => setIsOpen(false)}>
                     <Logo />
-                    <span className="font-bold font-headline text-xl">QAIU</span>
                 </Link>
               <nav className="flex flex-col gap-6 text-lg font-medium">
                 {navLinks.map((link) => (

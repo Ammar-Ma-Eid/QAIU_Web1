@@ -9,7 +9,6 @@ const Footer = () => {
         <div className="flex justify-center items-center flex-col">
            <Link href="/" className="flex items-center gap-3 mb-4">
               <Logo />
-              <span className="font-bold font-headline text-xl">QAIU</span>
             </Link>
           <p className="text-center text-sm text-muted-foreground max-w-md mx-auto">
             Exploring the frontiers of Quantum Computing. A student-led initiative at Alamein International University.
