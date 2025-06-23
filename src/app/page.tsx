@@ -1,10 +1,11 @@
 import { Button } from '@/components/ui/button';
-import InteractiveBackground from '@/components/interactive-background';
 import { ArrowRight, Atom, BrainCircuit, Cpu, CheckCircle, Mail, MapPin, Phone } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent } from "@/components/ui/card";
 import { ContactForm } from '@/components/contact-form';
+import ClientInteractiveBackground from '@/components/client-interactive-background';
+
 
 export default function Home() {
   const quantumApplications = [
@@ -19,7 +20,7 @@ export default function Home() {
 
   return (
     <div className="relative w-full overflow-hidden">
-      <InteractiveBackground />
+      <ClientInteractiveBackground />
       <section className="relative">
         <div className="absolute inset-0 z-0 opacity-10">
             <Image

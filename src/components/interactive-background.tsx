@@ -26,6 +26,10 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
 
     let animationFrameId: number;
     let particles: Particle[] = [];
+    
+    const foregroundColor = getComputedStyle(document.documentElement).getPropertyValue('--foreground').trim();
+    const particleColor = `hsl(${foregroundColor})`;
+    const [h, s, l] = foregroundColor.split(' ');
 
     const resizeCanvas = () => {
       const dpr = window.devicePixelRatio || 1;
@@ -33,7 +37,7 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
       canvas.height = canvas.offsetHeight * dpr;
       ctx.scale(dpr, dpr);
       
-      const particleCount = Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 12000);
+      const particleCount = Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 15000);
       particles = [];
       for (let i = 0; i < particleCount; i++) {
         const isAtom = Math.random() < 0.15; // 15% chance to be an atom
@@ -55,9 +59,6 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
     const animate = () => {
       if (!ctx) return;
       
-      const foregroundColor = getComputedStyle(document.documentElement).getPropertyValue('--foreground').trim();
-      const particleColor = `hsl(${foregroundColor})`;
-
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const scaledWidth = canvas.offsetWidth;
       const scaledHeight = canvas.offsetHeight;
@@ -104,14 +105,13 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
         }
       });
 
-      const [h, s, l] = foregroundColor.split(' ');
+      const maxDistance = 150;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const p1 = particles[i];
           const p2 = particles[j];
           const distance = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
-          const maxDistance = 200;
-
+          
           if (distance < maxDistance) {
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
