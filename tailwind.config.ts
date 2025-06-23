@@ -79,16 +79,16 @@ export default {
           },
         },
         'float-1': {
-          '0%, 100%': { transform: 'translateY(-5%) rotate(-3deg)' },
-          '50%': { transform: 'translateY(5%) rotate(3deg)' },
+          '0%, 100%': { transform: 'translateY(-5%)' },
+          '50%': { transform: 'translateY(5%)' },
         },
         'float-2': {
-            '0%, 100%': { transform: 'translate(150px, 80px) rotate(5deg)' },
-            '50%': { transform: 'translate(160px, 70px) rotate(-5deg)' },
+            '0%, 100%': { transform: 'translate(150px, 80px)' },
+            '50%': { transform: 'translate(160px, 70px)' },
         },
         'float-3': {
-            '0%, 100%': { transform: 'translate(-180px, -60px) rotate(-4deg)' },
-            '50%': { transform: 'translate(-190px, -50px) rotate(4deg)' },
+            '0%, 100%': { transform: 'translate(-180px, -60px)' },
+            '50%': { transform: 'translate(-190px, -50px)' },
         },
       },
       animation: {
