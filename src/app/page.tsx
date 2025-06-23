@@ -1,10 +1,20 @@
 import { Button } from '@/components/ui/button';
 import InteractiveBackground from '@/components/interactive-background';
-import { ArrowRight, Atom, BrainCircuit, Cpu } from 'lucide-react';
+import { ArrowRight, Atom, BrainCircuit, Cpu, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Home() {
+  const quantumApplications = [
+    { title: 'Cryptography', description: 'Breaking or creating ultra-secure encryption' },
+    { title: 'Drug discovery', description: 'Simulating molecules to speed up medicine development' },
+    { title: 'Optimization', description: 'Solving complex problems in logistics, finance, and engineering' },
+    { title: 'Artificial Intelligence', description: 'Speeding up machine learning algorithms' },
+    { title: 'Material science', description: 'Designing new materials at the atomic level' },
+    { title: 'Weather forecasting', description: 'Improving climate and weather prediction accuracy' },
+    { title: 'Financial modeling', description: 'Analyzing risk and markets more effectively' },
+  ];
+
   return (
     <div className="relative w-full overflow-hidden">
       <InteractiveBackground />
@@ -62,6 +72,33 @@ export default function Home() {
             <Image src="https://placehold.co/600x400" alt="Abstract Code" width={200} height={150} className="absolute rounded-lg shadow-2xl animate-float-3" data-ai-hint="abstract code" />
         </div>
       </div>
+
+       <section className="bg-foreground text-background">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+            <div>
+              <h2 className="font-headline text-3xl font-bold mb-6">What is Quantum Computing?</h2>
+              <p className="text-lg text-background/80 leading-relaxed">
+                Quantum computing uses the principles of quantum mechanics to process information. Unlike regular computers that use bits (0 or 1), quantum computers use qubits, which can be 0 and 1 at the same time (superposition). They also use entanglement, linking qubits together in powerful ways. This allows quantum computers to solve certain complex problems much faster than classical computers, although they are still mostly experimental today.
+              </p>
+            </div>
+            <div>
+              <h2 className="font-headline text-3xl font-bold mb-6">Quantum Applications</h2>
+              <ul className="space-y-4">
+                {quantumApplications.map((app) => (
+                    <li key={app.title} className="flex items-start">
+                        <CheckCircle className="h-6 w-6 mr-3 mt-1 text-primary flex-shrink-0" />
+                        <div>
+                            <strong className="text-background">{app.title}:</strong>
+                            <span className="text-background/80 ml-2">{app.description}</span>
+                        </div>
+                    </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
