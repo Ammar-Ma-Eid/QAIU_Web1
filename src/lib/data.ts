@@ -1,10 +1,10 @@
 export const members = [
-  { name: 'Dr. Quantum', role: 'Supervisor', imageUrl: 'https://placehold.co/400x400', dataAiHint: 'scientist portrait', email: 'dr.quantum@qaiu.edu', linkedinUrl: '#' },
-  { name: 'Alice', role: 'President', imageUrl: 'https://placehold.co/400x400', dataAiHint: 'woman portrait', email: 'alice@qaiu.edu', linkedinUrl: '#' },
-  { name: 'Bob', role: 'Vice President', imageUrl: 'https://placehold.co/300x300', dataAiHint: 'man portrait', email: 'bob@qaiu.edu', linkedinUrl: '#' },
-  { name: 'Charlie', role: 'Treasurer', imageUrl: 'https://placehold.co/300x300', dataAiHint: 'person portrait', email: 'charlie@qaiu.edu', linkedinUrl: '#' },
-  { name: 'David', role: 'Head of Events', imageUrl: 'https://placehold.co/300x300', dataAiHint: 'person smiling', email: 'david@qaiu.edu', linkedinUrl: '#' },
-  { name: 'Eve', role: 'Head of Media', imageUrl: 'https://placehold.co/300x300', dataAiHint: 'woman smiling', email: 'eve@qaiu.edu', linkedinUrl: '#' },
+  { id: '1', name: 'Dr. Quantum', role: 'Supervisor', imageUrl: 'https://placehold.co/400x400', dataAiHint: 'scientist portrait', email: 'dr.quantum@qaiu.edu', linkedinUrl: '#' },
+  { id: '2', name: 'Alice', role: 'President', imageUrl: 'https://placehold.co/400x400', dataAiHint: 'woman portrait', email: 'alice@qaiu.edu', linkedinUrl: '#' },
+  { id: '3', name: 'Bob', role: 'Vice President', imageUrl: 'https://placehold.co/300x300', dataAiHint: 'man portrait', email: 'bob@qaiu.edu', linkedinUrl: '#' },
+  { id: '4', name: 'Charlie', role: 'Treasurer', imageUrl: 'https://placehold.co/300x300', dataAiHint: 'person portrait', email: 'charlie@qaiu.edu', linkedinUrl: '#' },
+  { id: '5', name: 'David', role: 'Head of Events', imageUrl: 'https://placehold.co/300x300', dataAiHint: 'person smiling', email: 'david@qaiu.edu', linkedinUrl: '#' },
+  { id: '6', name: 'Eve', role: 'Head of Media', imageUrl: 'https://placehold.co/300x300', dataAiHint: 'woman smiling', email: 'eve@qaiu.edu', linkedinUrl: '#' },
 ];
 
 export const upcomingEvents = [
