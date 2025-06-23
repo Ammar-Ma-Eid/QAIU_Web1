@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { members, upcomingEvents, pastEvents, blogPosts } from '@/lib/data';
 import { format } from 'date-fns';
-import { Users, Calendar, BarChart3, LogOut, PlusCircle, Edit, Trash2, Newspaper } from 'lucide-react';
+import { Users, Calendar, BarChart3, LogOut, PlusCircle, Edit, Trash2, Newspaper, Link as LinkIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { logout } from '@/app/login/actions';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -29,6 +29,7 @@ import { MemberForm } from '@/components/admin/member-form';
 import { EventForm } from '@/components/admin/event-form';
 import { BlogPostForm } from '@/components/admin/blog-post-form';
 import { deleteMember, deleteEvent, deleteBlogPost } from './actions';
+import Link from 'next/link';
 
 export default function AdminDashboardPage() {
   const totalMembers = members.length;
@@ -135,6 +136,7 @@ export default function AdminDashboardPage() {
                                     <TableHead>Name</TableHead>
                                     <TableHead>Role</TableHead>
                                     <TableHead>Email</TableHead>
+                                    <TableHead>LinkedIn</TableHead>
                                     <TableHead className="text-right">Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
@@ -144,6 +146,16 @@ export default function AdminDashboardPage() {
                                         <TableCell className="font-medium">{member.name}</TableCell>
                                         <TableCell>{member.role}</TableCell>
                                         <TableCell>{member.email}</TableCell>
+                                        <TableCell>
+                                            {member.linkedinUrl && member.linkedinUrl !== '#' ? (
+                                                <a href={member.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline flex items-center gap-1">
+                                                    <LinkIcon className="h-3 w-3" />
+                                                    Profile
+                                                </a>
+                                            ) : (
+                                                <span className="text-muted-foreground">N/A</span>
+                                            )}
+                                        </TableCell>
                                         <TableCell className="text-right space-x-2">
                                             <Dialog>
                                                 <DialogTrigger asChild>

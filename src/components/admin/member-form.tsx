@@ -22,7 +22,7 @@ const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
   role: z.string().min(2, "Role must be at least 2 characters."),
   email: z.string().email("Invalid email address."),
-  linkedinUrl: z.string().optional(),
+  linkedinUrl: z.string().url("Please enter a valid URL.").or(z.literal("")).optional(),
   imageUrl: z.string().url("Image URL must be a valid URL."),
 })
 
@@ -121,7 +121,7 @@ export function MemberForm({ member }: MemberFormProps) {
             <FormItem>
               <FormLabel>LinkedIn URL (Optional)</FormLabel>
               <FormControl>
-                <Input placeholder="https://linkedin.com/in/..." {...field} />
+                <Input placeholder="https://linkedin.com/in/..." {...field} value={field.value ?? ''} />
               </FormControl>
               <FormMessage />
             </FormItem>
