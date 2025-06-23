@@ -65,6 +65,35 @@ export default function Home() {
         </div>
       </div>
 
+      <section className="relative container mx-auto px-4 pb-20 md:pb-32">
+        <div className="text-center mb-16">
+            <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tighter">Events and Activities</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-8 rounded-lg bg-card border flex flex-col text-center shadow-lg">
+                <h3 className="font-headline text-2xl font-bold mb-4">QBRRONZE</h3>
+                <p className="text-muted-foreground flex-grow">An exciting event focused on quantum computing basics and applications.</p>
+                <Button asChild variant="link" className="mt-6">
+                    <Link href="#">Know More</Link>
+                </Button>
+            </div>
+            <div className="p-8 rounded-lg bg-card border flex flex-col text-center shadow-lg">
+                <h3 className="font-headline text-2xl font-bold mb-4">Q CITY</h3>
+                <p className="text-muted-foreground flex-grow">A collaborative event exploring the intersection of quantum computing and smart cities.</p>
+                <Button asChild variant="link" className="mt-6">
+                    <Link href="#">Know More</Link>
+                </Button>
+            </div>
+            <div className="p-8 rounded-lg bg-card border flex flex-col text-center shadow-lg">
+                <h3 className="font-headline text-2xl font-bold mb-4">QCOBALT</h3>
+                <p className="text-muted-foreground flex-grow">An advanced workshop diving deep into quantum algorithms and their applications.</p>
+                <Button asChild variant="link" className="mt-6">
+                    <Link href="#">Know More</Link>
+                </Button>
+            </div>
+        </div>
+      </section>
+
       <div className="relative container mx-auto pb-20 md:pb-32">
         <div className="relative h-96 w-full flex items-center justify-center">
             <Image src="https://placehold.co/600x400" alt="Quantum Computer" width={450} height={300} className="absolute rounded-lg shadow-2xl animate-float-1" data-ai-hint="quantum computer" />
