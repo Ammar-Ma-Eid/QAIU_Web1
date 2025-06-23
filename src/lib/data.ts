@@ -70,7 +70,7 @@ export const pastEvents = [
 ];
 
 export const blogPosts = [
-    { title: 'Understanding Qubits: Beyond 0 and 1', author: 'Alice', date: '2024-09-01T11:00:00Z', excerpt: 'A fundamental look into the building blocks of quantum computers and what makes them so powerful.' },
-    { title: 'My Journey into Quantum: A Student\'s Perspective', author: 'Charlie', date: '2024-08-22T15:00:00Z', excerpt: 'Discover how a computer science student found a passion for the quantum realm.' },
-    { title: 'Can Quantum Computers Break Cryptography?', author: 'Bob', date: '2024-08-15T10:00:00Z', excerpt: 'Exploring Shor\'s algorithm and the implications of quantum computing for modern-day security.' },
+    { id: '1', title: 'Understanding Qubits: Beyond 0 and 1', author: 'Alice', date: '2024-09-01T11:00:00Z', excerpt: 'A fundamental look into the building blocks of quantum computers and what makes them so powerful.' },
+    { id: '2', title: 'My Journey into Quantum: A Student\'s Perspective', author: 'Charlie', date: '2024-08-22T15:00:00Z', excerpt: 'Discover how a computer science student found a passion for the quantum realm.' },
+    { id: '3', title: 'Can Quantum Computers Break Cryptography?', author: 'Bob', date: '2024-08-15T10:00:00Z', excerpt: 'Exploring Shor\'s algorithm and the implications of quantum computing for modern-day security.' },
 ];

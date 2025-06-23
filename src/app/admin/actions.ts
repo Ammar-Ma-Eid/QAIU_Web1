@@ -37,3 +37,43 @@ export async function deleteMember(id: string) {
   revalidatePath('/admin');
   revalidatePath('/about');
 }
+
+
+// --- Event Actions ---
+export async function addEvent(data: any) {
+  console.log('Adding event (simulation):', data);
+  revalidatePath('/admin');
+  revalidatePath('/events');
+}
+
+export async function updateEvent(id: string, data: any) {
+  console.log(`Updating event ${id} (simulation):`, data);
+  revalidatePath('/admin');
+  revalidatePath('/events');
+}
+
+export async function deleteEvent(id: string) {
+  console.log(`Deleting event ${id} (simulation)`);
+  revalidatePath('/admin');
+  revalidatePath('/events');
+}
+
+
+// --- Blog Post Actions ---
+export async function addBlogPost(data: any) {
+  console.log('Adding blog post (simulation):', data);
+  revalidatePath('/admin');
+  revalidatePath('/blog');
+}
+
+export async function updateBlogPost(id: string, data: any) {
+  console.log(`Updating blog post ${id} (simulation):`, data);
+  revalidatePath('/admin');
+  revalidatePath('/blog');
+}
+
+export async function deleteBlogPost(id: string) {
+  console.log(`Deleting blog post ${id} (simulation)`);
+  revalidatePath('/admin');
+  revalidatePath('/blog');
+}
