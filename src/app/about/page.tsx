@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { members } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import InteractiveBackground from '@/components/interactive-background';
-import { Linkedin, Mail } from 'lucide-react';
+import { Linkedin, Mail, MapPin, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function AboutPage() {
   const supervisor = members.find(m => m.role === 'Supervisor');
@@ -20,6 +21,45 @@ export default function AboutPage() {
             We are a passionate group of students at Alamein International University dedicated to exploring the vast potential of Quantum Computing.
           </p>
         </div>
+
+        <section className="mb-20">
+            <h2 className="font-headline text-3xl font-bold text-center mb-10">Our Host Institution</h2>
+            <Card className="max-w-4xl mx-auto bg-card/60 backdrop-blur-sm border-border/50 shadow-lg overflow-hidden">
+                <div className="md:flex">
+                    <div className="md:w-1/2 relative min-h-[300px] md:min-h-0">
+                        <Image 
+                            src="https://placehold.co/800x600"
+                            alt="Alamein International University Campus"
+                            fill
+                            className="object-cover"
+                            data-ai-hint="university campus"
+                        />
+                    </div>
+                    <div className="p-8 md:w-1/2 flex flex-col justify-center">
+                        <div className="relative h-12 w-48 mb-6">
+                            <Image 
+                                 src="https://placehold.co/200x50"
+                                 alt="Alamein International University Logo"
+                                 fill
+                                 className="object-contain"
+                                 data-ai-hint="university logo"
+                            />
+                        </div>
+                        <h3 className="font-headline text-2xl font-bold mb-2">Alamein International University</h3>
+                        <div className="flex items-center text-muted-foreground mb-6">
+                            <MapPin className="mr-2 h-5 w-5 flex-shrink-0" />
+                            <span>New Alamein, Matrouh, Egypt</span>
+                        </div>
+                        <Button asChild className="w-fit">
+                            <a href="https://maps.app.goo.gl/twVSKZrs4wrepVcp7" target="_blank" rel="noopener noreferrer">
+                                View on Google Maps
+                                <ExternalLink className="ml-2 h-4 w-4" />
+                            </a>
+                        </Button>
+                    </div>
+                </div>
+            </Card>
+        </section>
 
         <section className="mb-20">
           <h2 className="font-headline text-3xl font-bold text-center mb-10">Our Leadership</h2>
