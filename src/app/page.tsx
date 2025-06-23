@@ -20,26 +20,38 @@ export default function Home() {
   return (
     <div className="relative w-full overflow-hidden">
       <InteractiveBackground />
-      <div className="relative container mx-auto px-4 py-20 md:py-32 text-center">
-        <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">
-          Quantum computing at <span className="text-primary">Alamein International University</span>
-        </h1>
-        <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8">
-          Exploring the world of quantum computing to pioneer the next wave of technological innovation.
-        </p>
-        <div className="flex justify-center gap-4">
-          <Button asChild size="lg">
-            <Link href="/about">
-              Learn More <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-          <Button asChild size="lg" variant="outline">
-            <Link href="/events">
-              Upcoming Events
-            </Link>
-          </Button>
+      <section className="relative">
+        <div className="absolute inset-0 z-0 opacity-10">
+            <Image
+                src="https://placehold.co/1600x900"
+                alt="Quantum abstract background"
+                fill
+                className="object-cover"
+                data-ai-hint="quantum abstract"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background" />
         </div>
-      </div>
+        <div className="relative z-10 container mx-auto px-4 py-20 md:py-32 text-center">
+          <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">
+            Quantum computing at <span className="text-primary">Alamein International University</span>
+          </h1>
+          <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8">
+            Exploring the world of quantum computing to pioneer the next wave of technological innovation.
+          </p>
+          <div className="flex justify-center gap-4">
+            <Button asChild size="lg">
+              <Link href="/about">
+                Learn More <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/events">
+                Upcoming Events
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       <div className="relative container mx-auto px-4 pb-20 md:pb-32">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
