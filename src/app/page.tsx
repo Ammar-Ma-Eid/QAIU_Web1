@@ -131,7 +131,7 @@ export default function Home() {
         </div>
       </section>
       
-      <section className="bg-secondary">
+      <section id="contact" className="bg-secondary">
         <div className="container mx-auto px-4 py-16 md:py-24">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tighter">GET IN TOUCH WITH US</h2>
