@@ -24,10 +24,10 @@ export default function Home() {
         <div className="absolute inset-0 z-0 opacity-10">
             <Image
                 src="https://placehold.co/1600x900"
-                alt="Quantum abstract background"
+                alt="Quantum computer background"
                 fill
                 className="object-cover"
-                data-ai-hint="quantum abstract"
+                data-ai-hint="quantum computer"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background" />
         </div>
