@@ -1,14 +1,16 @@
 'use client'
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { useForm, useFieldArray } from "react-hook-form"
 import * as z from "zod"
 import { format } from "date-fns"
+import { PlusCircle, Trash2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,6 +31,11 @@ const formSchema = z.object({
   location: z.string().min(2, "Location must be at least 2 characters."),
   imageUrl: z.string().url("Image URL must be a valid URL."),
   dataAiHint: z.string().optional(),
+  gallery: z.array(z.object({
+    src: z.string().url({ message: "Must be a valid URL." }),
+    alt: z.string().min(1, { message: "Alt text cannot be empty." }),
+    dataAiHint: z.string().optional(),
+  })).optional(),
 })
 
 type EventFormValues = z.infer<typeof formSchema>
@@ -48,8 +55,14 @@ export function EventForm({ event }: EventFormProps) {
       location: event?.location || "",
       imageUrl: event?.imageUrl || "https://placehold.co/1200x600",
       dataAiHint: event?.dataAiHint || "",
+      gallery: event?.gallery || [],
     },
   })
+
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "gallery"
+  });
 
   async function onSubmit(data: EventFormValues) {
     const submissionData = {
@@ -140,7 +153,7 @@ export function EventForm({ event }: EventFormProps) {
           name="imageUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Image URL</FormLabel>
+              <FormLabel>Main Image URL</FormLabel>
               <FormControl>
                 <Input placeholder="https://placehold.co/1200x600" {...field} />
               </FormControl>
@@ -153,7 +166,7 @@ export function EventForm({ event }: EventFormProps) {
           name="dataAiHint"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Image AI Hint (Optional)</FormLabel>
+              <FormLabel>Main Image AI Hint (Optional)</FormLabel>
               <FormControl>
                 <Input placeholder="e.g. hackathon event" {...field} />
               </FormControl>
@@ -161,6 +174,85 @@ export function EventForm({ event }: EventFormProps) {
             </FormItem>
           )}
         />
+        
+        {/* Gallery Section */}
+        <div className="space-y-2">
+            <FormLabel>Event Gallery</FormLabel>
+             <FormDescription>
+                Add images that will be displayed on the event detail page.
+            </FormDescription>
+            <div className="p-4 border rounded-lg space-y-4 bg-secondary/50">
+                {fields.length === 0 && (
+                    <p className="text-sm text-center text-muted-foreground py-4">No gallery images added.</p>
+                )}
+                {fields.map((field, index) => (
+                    <div key={field.id} className="p-4 border rounded-md relative bg-background shadow-sm">
+                        <div className="space-y-4">
+                            <FormField
+                                control={form.control}
+                                name={`gallery.${index}.src`}
+                                render={({ field }) => (
+                                    <FormItem>
+                                    <FormLabel>Image URL</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="https://placehold.co/800x600" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name={`gallery.${index}.alt`}
+                                render={({ field }) => (
+                                    <FormItem>
+                                    <FormLabel>Alt Text</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="A description of the image" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                             <FormField
+                                control={form.control}
+                                name={`gallery.${index}.dataAiHint`}
+                                render={({ field }) => (
+                                    <FormItem>
+                                    <FormLabel>Image AI Hint (Optional)</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="e.g. students presenting" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="absolute top-1 right-1 text-destructive hover:text-destructive hover:bg-destructive/10 h-8 w-8"
+                            onClick={() => remove(index)}
+                        >
+                            <span className="sr-only">Remove Image</span>
+                            <Trash2 className="h-4 w-4" />
+                        </Button>
+                    </div>
+                ))}
+                 <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="mt-2"
+                    onClick={() => append({ src: 'https://placehold.co/800x600', alt: '', dataAiHint: '' })}
+                >
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    Add Gallery Image
+                </Button>
+            </div>
+        </div>
+
         <Button type="submit" disabled={form.formState.isSubmitting}>
             {form.formState.isSubmitting ? 'Saving...' : 'Save Changes'}
         </Button>

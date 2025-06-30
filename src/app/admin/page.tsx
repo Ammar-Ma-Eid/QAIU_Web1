@@ -29,7 +29,7 @@ import { MemberForm } from '@/components/admin/member-form';
 import { EventForm } from '@/components/admin/event-form';
 import { BlogPostForm } from '@/components/admin/blog-post-form';
 import { deleteMember, deleteEvent, deleteBlogPost } from './actions';
-import Link from 'next/link';
+import { DeleteButton } from '@/components/admin/delete-button';
 
 export default async function AdminDashboardPage() {
   const [members, upcomingEvents, pastEvents, blogPosts] = await Promise.all([
@@ -148,7 +148,8 @@ export default async function AdminDashboardPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {members.map((member) => (
+                                {members.length > 0 ? (
+                                    members.map((member) => (
                                     <TableRow key={member.id}>
                                         <TableCell className="font-medium">{member.name}</TableCell>
                                         <TableCell>{member.role}</TableCell>
@@ -196,16 +197,20 @@ export default async function AdminDashboardPage() {
                                                     <AlertDialogFooter>
                                                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                                                         <form action={async () => { 'use server'; await deleteMember(member.id) }}>
-                                                            <AlertDialogAction asChild>
-                                                               <Button type="submit" variant="destructive">Delete</Button>
-                                                            </AlertDialogAction>
+                                                            <DeleteButton />
                                                         </form>
                                                     </AlertDialogFooter>
                                                 </AlertDialogContent>
                                             </AlertDialog>
                                         </TableCell>
                                     </TableRow>
-                                ))}
+                                ))) : (
+                                    <TableRow>
+                                        <TableCell colSpan={5} className="h-24 text-center">
+                                            No members found.
+                                        </TableCell>
+                                    </TableRow>
+                                )}
                             </TableBody>
                         </Table>
                     </CardContent>
@@ -222,7 +227,7 @@ export default async function AdminDashboardPage() {
                                 Add Event
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-lg">
+                        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
                             <DialogHeader>
                                 <DialogTitle>Add New Event</DialogTitle>
                                 <DialogDescription>
@@ -249,14 +254,15 @@ export default async function AdminDashboardPage() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {group.events.map((event) => (
+                                    {group.events.length > 0 ? (
+                                        group.events.map((event) => (
                                         <TableRow key={event.id}>
                                             <TableCell className="font-medium">{event.title}</TableCell>
                                             <TableCell>{format(new Date(event.date), 'PPP')}</TableCell>
                                             <TableCell className="text-right space-x-2">
                                                  <Dialog>
                                                     <DialogTrigger asChild><Button variant="outline" size="icon"><Edit className="h-4 w-4" /></Button></DialogTrigger>
-                                                    <DialogContent className="sm:max-w-lg">
+                                                    <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
                                                         <DialogHeader>
                                                             <DialogTitle>Edit Event</DialogTitle>
                                                             <DialogDescription>Update details for {event.title}.</DialogDescription>
@@ -273,13 +279,21 @@ export default async function AdminDashboardPage() {
                                                         </AlertDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <form action={async () => { 'use server'; await deleteEvent(event.id) }}><AlertDialogAction asChild><Button type="submit" variant="destructive">Delete</Button></AlertDialogAction></form>
+                                                            <form action={async () => { 'use server'; await deleteEvent(event.id) }}>
+                                                                <DeleteButton />
+                                                            </form>
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
                                                 </AlertDialog>
                                             </TableCell>
                                         </TableRow>
-                                    ))}
+                                    ))) : (
+                                        <TableRow>
+                                            <TableCell colSpan={3} className="h-24 text-center">
+                                                No {group.title.toLowerCase()} found.
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
                                 </TableBody>
                             </Table>
                         </CardContent>
@@ -313,7 +327,8 @@ export default async function AdminDashboardPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {blogPosts.map((post) => (
+                                {blogPosts.length > 0 ? (
+                                    blogPosts.map((post) => (
                                     <TableRow key={post.id}>
                                         <TableCell className="font-medium">{post.title}</TableCell>
                                         <TableCell>{post.author}</TableCell>
@@ -338,13 +353,21 @@ export default async function AdminDashboardPage() {
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
                                                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <form action={async () => { 'use server'; await deleteBlogPost(post.id) }}><AlertDialogAction asChild><Button type="submit" variant="destructive">Delete</Button></AlertDialogAction></form>
+                                                        <form action={async () => { 'use server'; await deleteBlogPost(post.id) }}>
+                                                            <DeleteButton />
+                                                        </form>
                                                     </AlertDialogFooter>
                                                 </AlertDialogContent>
                                             </AlertDialog>
                                         </TableCell>
                                     </TableRow>
-                                ))}
+                                ))) : (
+                                    <TableRow>
+                                        <TableCell colSpan={4} className="h-24 text-center">
+                                            No blog posts found.
+                                        </TableCell>
+                                    </TableRow>
+                                )}
                             </TableBody>
                         </Table>
                     </CardContent>
