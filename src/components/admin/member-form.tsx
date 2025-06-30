@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
 import { addMember, updateMember } from "@/app/admin/actions"
-import type { members } from "@/lib/data"
+import type { Member } from "@/lib/types"
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -24,10 +24,10 @@ const formSchema = z.object({
   email: z.string().email("Invalid email address."),
   linkedinUrl: z.string().url("Please enter a valid URL.").or(z.literal("")).optional(),
   imageUrl: z.string().url("Image URL must be a valid URL."),
+  dataAiHint: z.string().optional(),
 })
 
 type MemberFormValues = z.infer<typeof formSchema>
-type Member = (typeof members)[number];
 
 interface MemberFormProps {
   member?: Member
@@ -43,6 +43,7 @@ export function MemberForm({ member }: MemberFormProps) {
       email: member?.email || "",
       linkedinUrl: member?.linkedinUrl || "",
       imageUrl: member?.imageUrl || "https://placehold.co/300x300",
+      dataAiHint: member?.dataAiHint || "",
     },
   })
 
@@ -52,13 +53,13 @@ export function MemberForm({ member }: MemberFormProps) {
         await updateMember(member.id, data) 
         toast({
           title: "Member Updated",
-          description: `Details for ${data.name} have been updated (simulation).`,
+          description: `Details for ${data.name} have been updated.`,
         })
       } else {
         await addMember(data)
         toast({
           title: "Member Added",
-          description: `${data.name} has been added to the team (simulation).`,
+          description: `${data.name} has been added to the team.`,
         })
       }
        // In a real app, you might want to programmatically close the dialog here.
@@ -135,6 +136,19 @@ export function MemberForm({ member }: MemberFormProps) {
               <FormLabel>Image URL</FormLabel>
               <FormControl>
                 <Input placeholder="https://placehold.co/300x300" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="dataAiHint"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Image AI Hint (Optional)</FormLabel>
+              <FormControl>
+                <Input placeholder="e.g. person smiling" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -1,0 +1,28 @@
+export type Member = {
+  id: string;
+  name: string;
+  role: string;
+  imageUrl: string;
+  dataAiHint: string;
+  email: string;
+  linkedinUrl: string;
+};
+
+export type Event = {
+  id: string;
+  title: string;
+  date: string; // ISO string
+  description: string;
+  imageUrl: string;
+  dataAiHint: string;
+  location: string;
+  gallery: Array<{ src: string; alt: string; dataAiHint: string; }>;
+};
+
+export type BlogPost = {
+  id: string;
+  title: string;
+  author: string;
+  date: string; // ISO string
+  excerpt: string;
+};

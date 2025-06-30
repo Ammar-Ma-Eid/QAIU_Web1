@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { addBlogPost, updateBlogPost } from "@/app/admin/actions"
-import type { blogPosts } from "@/lib/data"
+import type { BlogPost } from "@/lib/types"
 
 const formSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters."),
@@ -30,7 +30,6 @@ const formSchema = z.object({
 })
 
 type BlogPostFormValues = z.infer<typeof formSchema>
-type BlogPost = (typeof blogPosts)[number];
 
 interface BlogPostFormProps {
   post?: BlogPost
@@ -59,13 +58,13 @@ export function BlogPostForm({ post }: BlogPostFormProps) {
         await updateBlogPost(post.id, submissionData) 
         toast({
           title: "Blog Post Updated",
-          description: `The post "${data.title}" has been updated (simulation).`,
+          description: `The post "${data.title}" has been updated.`,
         })
       } else {
         await addBlogPost(submissionData)
         toast({
           title: "Blog Post Added",
-          description: `The post "${data.title}" has been added (simulation).`,
+          description: `The post "${data.title}" has been added.`,
         })
       }
     } catch (error) {

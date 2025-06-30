@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { members } from '@/lib/data';
+import { getMembers } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import ClientInteractiveBackground from '@/components/client-interactive-background';
 import { Linkedin, Mail, MapPin, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const members = await getMembers();
   const supervisor = members.find(m => m.role === 'Supervisor');
   const president = members.find(m => m.role === 'President');
   const otherMembers = members.filter(m => m.role !== 'Supervisor' && m.role !== 'President');
@@ -117,7 +118,7 @@ export default function AboutPage() {
           <h2 className="font-headline text-3xl font-bold text-center mb-10">Our Team</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
             {otherMembers.map((member) => (
-              <Card key={member.name} className="bg-card/60 backdrop-blur-sm border-border/50 overflow-hidden text-center pt-6 shadow-lg">
+              <Card key={member.id} className="bg-card/60 backdrop-blur-sm border-border/50 overflow-hidden text-center pt-6 shadow-lg">
                 <div className="relative w-24 h-24 mx-auto rounded-full overflow-hidden border-2 border-primary/20">
                   <Image src={member.imageUrl} alt={member.name} fill style={{objectFit: 'cover'}} data-ai-hint={member.dataAiHint} />
                 </div>

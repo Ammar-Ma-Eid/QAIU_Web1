@@ -1,12 +1,14 @@
-'use client'
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { upcomingEvents, pastEvents } from '@/lib/data';
+import { getUpcomingEvents, getPastEvents } from '@/lib/data';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { format } from 'date-fns';
 import Link from 'next/link';
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const upcomingEvents = await getUpcomingEvents();
+  const pastEvents = await getPastEvents();
+
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
       <div className="text-center mb-16">

@@ -1,79 +1,106 @@
 'use server'
 import { revalidatePath } from 'next/cache'
+import clientPromise from '@/lib/mongodb'
+import { ObjectId } from 'mongodb'
 
-// Note: These actions are simulations.
-// In a real app, they would interact with a database to persist changes.
+async function getDb() {
+  const client = await clientPromise;
+  return client.db();
+}
 
 /**
- * Simulates adding a new member.
+ * Adds a new member to the database.
  * @param data The data for the new member.
  */
 export async function addMember(data: any) {
-  console.log('Adding member (simulation):', data);
-  // In a real app: await db.members.create({ data });
+  const db = await getDb();
+  await db.collection('members').insertOne(data);
   revalidatePath('/admin');
   revalidatePath('/about');
 }
 
 /**
- * Simulates updating an existing member.
+ * Updates an existing member in the database.
  * @param id The ID of the member to update.
  * @param data The new data for the member.
  */
 export async function updateMember(id: string, data: any) {
-  console.log(`Updating member ${id} (simulation):`, data);
-  // In a real app: await db.members.update({ where: { id }, data });
+  if (!ObjectId.isValid(id)) {
+    throw new Error('Invalid ID');
+  }
+  const db = await getDb();
+  await db.collection('members').updateOne({ _id: new ObjectId(id) }, { $set: data });
   revalidatePath('/admin');
   revalidatePath('/about');
 }
 
 /**
- * Simulates deleting a member.
+ * Deletes a member from the database.
  * @param id The ID of the member to delete.
  */
 export async function deleteMember(id: string) {
-  console.log(`Deleting member ${id} (simulation)`);
-  // In a real app: await db.members.delete({ where: { id } });
+  if (!ObjectId.isValid(id)) {
+    throw new Error('Invalid ID');
+  }
+  const db = await getDb();
+  await db.collection('members').deleteOne({ _id: new ObjectId(id) });
   revalidatePath('/admin');
   revalidatePath('/about');
 }
 
-
 // --- Event Actions ---
 export async function addEvent(data: any) {
-  console.log('Adding event (simulation):', data);
+  const db = await getDb();
+  // The gallery is not managed by the form, so we add a default empty array.
+  await db.collection('events').insertOne({ ...data, gallery: [] });
   revalidatePath('/admin');
   revalidatePath('/events');
 }
 
 export async function updateEvent(id: string, data: any) {
-  console.log(`Updating event ${id} (simulation):`, data);
+  if (!ObjectId.isValid(id)) {
+    throw new Error('Invalid ID');
+  }
+  const db = await getDb();
+  await db.collection('events').updateOne({ _id: new ObjectId(id) }, { $set: data });
   revalidatePath('/admin');
   revalidatePath('/events');
 }
 
 export async function deleteEvent(id: string) {
-  console.log(`Deleting event ${id} (simulation)`);
+  if (!ObjectId.isValid(id)) {
+    throw new Error('Invalid ID');
+  }
+  const db = await getDb();
+  await db.collection('events').deleteOne({ _id: new ObjectId(id) });
   revalidatePath('/admin');
   revalidatePath('/events');
 }
 
-
 // --- Blog Post Actions ---
 export async function addBlogPost(data: any) {
-  console.log('Adding blog post (simulation):', data);
+  const db = await getDb();
+  await db.collection('blogPosts').insertOne(data);
   revalidatePath('/admin');
   revalidatePath('/blog');
 }
 
 export async function updateBlogPost(id: string, data: any) {
-  console.log(`Updating blog post ${id} (simulation):`, data);
+  if (!ObjectId.isValid(id)) {
+    throw new Error('Invalid ID');
+  }
+  const db = await getDb();
+  await db.collection('blogPosts').updateOne({ _id: new ObjectId(id) }, { $set: data });
   revalidatePath('/admin');
   revalidatePath('/blog');
 }
 
 export async function deleteBlogPost(id: string) {
-  console.log(`Deleting blog post ${id} (simulation)`);
+  if (!ObjectId.isValid(id)) {
+    throw new Error('Invalid ID');
+  }
+  const db = await getDb();
+  await db.collection('blogPosts').deleteOne({ _id: new ObjectId(id) });
   revalidatePath('/admin');
   revalidatePath('/blog');
 }

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { members, upcomingEvents, pastEvents, blogPosts } from '@/lib/data';
+import { getMembers, getUpcomingEvents, getPastEvents, getBlogPosts } from '@/lib/data';
 import { format } from 'date-fns';
 import { Users, Calendar, BarChart3, LogOut, PlusCircle, Edit, Trash2, Newspaper, Link as LinkIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -31,7 +31,14 @@ import { BlogPostForm } from '@/components/admin/blog-post-form';
 import { deleteMember, deleteEvent, deleteBlogPost } from './actions';
 import Link from 'next/link';
 
-export default function AdminDashboardPage() {
+export default async function AdminDashboardPage() {
+  const [members, upcomingEvents, pastEvents, blogPosts] = await Promise.all([
+    getMembers(),
+    getUpcomingEvents(),
+    getPastEvents(),
+    getBlogPosts()
+  ]);
+
   const totalMembers = members.length;
   const totalUpcomingEvents = upcomingEvents.length;
   const totalPastEvents = pastEvents.length;
@@ -183,7 +190,7 @@ export default function AdminDashboardPage() {
                                                     <AlertDialogHeader>
                                                         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                                                         <AlertDialogDescription>
-                                                            This action cannot be undone. This will permanently delete {member.name} from the list (simulation).
+                                                            This action cannot be undone. This will permanently delete {member.name} from the database.
                                                         </AlertDialogDescription>
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
@@ -254,7 +261,7 @@ export default function AdminDashboardPage() {
                                                             <DialogTitle>Edit Event</DialogTitle>
                                                             <DialogDescription>Update details for {event.title}.</DialogDescription>
                                                         </DialogHeader>
-                                                        <EventForm event={event as any} />
+                                                        <EventForm event={event} />
                                                     </DialogContent>
                                                 </Dialog>
                                                 <AlertDialog>
@@ -262,7 +269,7 @@ export default function AdminDashboardPage() {
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                                            <AlertDialogDescription>This will permanently delete "{event.title}" (simulation).</AlertDialogDescription>
+                                                            <AlertDialogDescription>This will permanently delete "{event.title}" from the database.</AlertDialogDescription>
                                                         </AlertDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -327,7 +334,7 @@ export default function AdminDashboardPage() {
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
                                                         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                                        <AlertDialogDescription>This will permanently delete "{post.title}" (simulation).</AlertDialogDescription>
+                                                        <AlertDialogDescription>This will permanently delete "{post.title}" from the database.</AlertDialogDescription>
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
                                                         <AlertDialogCancel>Cancel</AlertDialogCancel>

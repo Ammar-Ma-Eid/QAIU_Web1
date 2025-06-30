@@ -1,4 +1,4 @@
-import { upcomingEvents, pastEvents } from '@/lib/data';
+import { getEventById } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
@@ -12,18 +12,8 @@ type PageProps = {
   };
 };
 
-export default function EventDetailPage({ params }: PageProps) {
-  const allEvents: Array<{
-    id: string;
-    title: string;
-    date: string;
-    description: string;
-    imageUrl: string;
-    dataAiHint: string;
-    location: string;
-    gallery: Array<{ src: string; alt: string; dataAiHint: string; }>;
-  }> = [...upcomingEvents, ...pastEvents] as any;
-  const event = allEvents.find((e) => e.id === params.id);
+export default async function EventDetailPage({ params }: PageProps) {
+  const event = await getEventById(params.id);
 
   if (!event) {
     notFound();
@@ -55,7 +45,7 @@ export default function EventDetailPage({ params }: PageProps) {
               alt={event.title} 
               fill 
               style={{ objectFit: 'cover' }} 
-              data-ai-hint={event.dataAiHint}
+              data-ai-hint={event.dataAiHint || 'event image'}
               priority
             />
           </div>

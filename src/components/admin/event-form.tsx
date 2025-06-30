@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { addEvent, updateEvent } from "@/app/admin/actions"
-import type { upcomingEvents } from "@/lib/data"
+import type { Event } from "@/lib/types"
 
 const formSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters."),
@@ -28,10 +28,10 @@ const formSchema = z.object({
   description: z.string().min(10, "Description must be at least 10 characters."),
   location: z.string().min(2, "Location must be at least 2 characters."),
   imageUrl: z.string().url("Image URL must be a valid URL."),
+  dataAiHint: z.string().optional(),
 })
 
 type EventFormValues = z.infer<typeof formSchema>
-type Event = (typeof upcomingEvents)[number];
 
 interface EventFormProps {
   event?: Event
@@ -47,6 +47,7 @@ export function EventForm({ event }: EventFormProps) {
       description: event?.description || "",
       location: event?.location || "",
       imageUrl: event?.imageUrl || "https://placehold.co/1200x600",
+      dataAiHint: event?.dataAiHint || "",
     },
   })
 
@@ -61,13 +62,13 @@ export function EventForm({ event }: EventFormProps) {
         await updateEvent(event.id, submissionData) 
         toast({
           title: "Event Updated",
-          description: `The event "${data.title}" has been updated (simulation).`,
+          description: `The event "${data.title}" has been updated.`,
         })
       } else {
         await addEvent(submissionData)
         toast({
           title: "Event Added",
-          description: `The event "${data.title}" has been added (simulation).`,
+          description: `The event "${data.title}" has been added.`,
         })
       }
     } catch (error) {
@@ -142,6 +143,19 @@ export function EventForm({ event }: EventFormProps) {
               <FormLabel>Image URL</FormLabel>
               <FormControl>
                 <Input placeholder="https://placehold.co/1200x600" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+         <FormField
+          control={form.control}
+          name="dataAiHint"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Image AI Hint (Optional)</FormLabel>
+              <FormControl>
+                <Input placeholder="e.g. hackathon event" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

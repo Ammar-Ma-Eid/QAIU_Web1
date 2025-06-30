@@ -1,6 +1,7 @@
 'use server'
 
 import { z } from 'zod';
+import clientPromise from '@/lib/mongodb';
 
 export type State = {
   success?: boolean;
@@ -20,6 +21,11 @@ const contactSchema = z.object({
   message: z.string().min(10, { message: 'Message must be at least 10 characters.' }),
 });
 
+async function getDb() {
+  const client = await clientPromise;
+  return client.db();
+}
+
 export async function submitContactForm(prevState: State | undefined, formData: FormData): Promise<State> {
   const validatedFields = contactSchema.safeParse({
     name: formData.get('name'),
@@ -36,14 +42,20 @@ export async function submitContactForm(prevState: State | undefined, formData: 
     }
   }
 
-  // Simulation of sending an email. In a real app, you'd use a service like Nodemailer or SendGrid.
-  console.log('--- New Contact Form Submission ---');
-  console.log('To: qaiu@aiu.edu.eg');
-  console.log('Name:', validatedFields.data.name);
-  console.log('Email:', validatedFields.data.email);
-  console.log('Phone:', validatedFields.data.phone);
-  console.log('Message:', validatedFields.data.message);
-  console.log('--- End of Submission ---');
+  try {
+    const db = await getDb();
+    await db.collection('contacts').insertOne({
+      ...validatedFields.data,
+      submittedAt: new Date(),
+    });
+  } catch (e) {
+    console.error('Failed to save contact form submission:', e);
+    return {
+      success: false,
+      message: 'A server error occurred. Please try again later.',
+    };
+  }
+
 
   return {
     success: true,
