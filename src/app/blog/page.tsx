@@ -4,6 +4,7 @@ import { User, Calendar, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
+import Image from 'next/image';
 
 export default async function BlogPage() {
   const blogPosts = await getBlogPosts();
@@ -18,31 +19,41 @@ export default async function BlogPage() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {blogPosts.map((post) => (
-          <Card key={post.id} className="flex flex-col bg-card/60 backdrop-blur-sm border-border/50 shadow-lg">
-            <CardHeader>
-              <CardTitle className="font-headline text-2xl leading-tight">{post.title}</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <p className="text-muted-foreground">{post.excerpt}</p>
-            </CardContent>
-            <CardFooter className="flex-col items-start gap-4">
-               <div className="flex flex-wrap items-center justify-between text-sm text-muted-foreground w-full gap-2">
-                <div className="flex items-center">
-                  <User className="mr-2 h-4 w-4" />
-                  <span>{post.author}</span>
-                </div>
-                <div className="flex items-center">
-                  <Calendar className="mr-2 h-4 w-4" />
-                  <span>{format(new Date(post.date), 'PPP')}</span>
-                </div>
+           <Link href={`/blog/${post.id}`} key={post.id} className="group block">
+            <Card className="flex flex-col bg-card/60 backdrop-blur-sm border-border/50 shadow-lg overflow-hidden h-full transition-all group-hover:border-primary/50 group-hover:shadow-xl">
+              <div className="relative aspect-video">
+                <Image
+                  src={post.imageUrl}
+                  alt={post.title}
+                  fill
+                  className="object-cover"
+                  data-ai-hint={post.dataAiHint || 'blog post image'}
+                />
               </div>
-              <Button asChild variant="link" className="p-0 h-auto text-primary hover:text-primary/80">
-                <Link href={`/blog/${post.id}`}>
-                  Read More <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
+              <CardHeader>
+                <CardTitle className="font-headline text-2xl leading-tight">{post.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <p className="text-muted-foreground line-clamp-3">{post.excerpt}</p>
+              </CardContent>
+              <CardFooter className="flex-col items-start gap-4">
+                <div className="flex flex-wrap items-center justify-between text-sm text-muted-foreground w-full gap-2">
+                  <div className="flex items-center">
+                    <User className="mr-2 h-4 w-4" />
+                    <span>{post.author}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Calendar className="mr-2 h-4 w-4" />
+                    <span>{format(new Date(post.date), 'PPP')}</span>
+                  </div>
+                </div>
+                <div className="text-primary font-medium flex items-center transition-transform group-hover:translate-x-1 mt-auto pt-2">
+                    Read More
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                </div>
+              </CardFooter>
+            </Card>
+           </Link>
         ))}
       </div>
     </div>

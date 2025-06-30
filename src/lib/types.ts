@@ -26,4 +26,6 @@ export type BlogPost = {
   date: string; // ISO string
   excerpt: string;
   content: string;
+  imageUrl: string;
+  dataAiHint: string;
 };

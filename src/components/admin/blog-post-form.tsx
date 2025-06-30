@@ -28,6 +28,8 @@ const formSchema = z.object({
   }),
   excerpt: z.string().min(10, "Excerpt must be at least 10 characters."),
   content: z.string().min(20, "Content must be at least 20 characters."),
+  imageUrl: z.string().url("Image URL must be a valid URL."),
+  dataAiHint: z.string().optional(),
 })
 
 type BlogPostFormValues = z.infer<typeof formSchema>
@@ -46,6 +48,8 @@ export function BlogPostForm({ post }: BlogPostFormProps) {
       date: post ? format(new Date(post.date), "yyyy-MM-dd'T'HH:mm") : "",
       excerpt: post?.excerpt || "",
       content: post?.content || "",
+      imageUrl: post?.imageUrl || "https://placehold.co/1200x600",
+      dataAiHint: post?.dataAiHint || "",
     },
   })
 
@@ -141,6 +145,32 @@ export function BlogPostForm({ post }: BlogPostFormProps) {
               <FormLabel>Content</FormLabel>
               <FormControl>
                 <Textarea placeholder="The full content of the blog post..." {...field} rows={10} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="imageUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Feature Image URL</FormLabel>
+              <FormControl>
+                <Input placeholder="https://placehold.co/1200x600" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="dataAiHint"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Image AI Hint (Optional)</FormLabel>
+              <FormControl>
+                <Input placeholder="e.g. quantum computer" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
