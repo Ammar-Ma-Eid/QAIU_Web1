@@ -37,7 +37,7 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
       canvas.height = canvas.offsetHeight * dpr;
       ctx.scale(dpr, dpr);
       
-      const particleCount = Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 15000);
+      const particleCount = Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 25000);
       particles = [];
       for (let i = 0; i < particleCount; i++) {
         const isAtom = Math.random() < 0.15; // 15% chance to be an atom
@@ -105,7 +105,7 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
         }
       });
 
-      const maxDistance = 180;
+      const maxDistance = 150;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const p1 = particles[i];
