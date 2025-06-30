@@ -1,5 +1,5 @@
-var clientPromise = require('./src/lib/db/mongodb');
-var ContactMessage = require('./src/lib/db/schemas').ContactMessage;
+var clientPromise = require('../../src/lib/db/mongodb');
+var ContactMessage = require('../../src/lib/db/schemas').ContactMessage;
 var express = require('express');
 var router = express.Router();
 
