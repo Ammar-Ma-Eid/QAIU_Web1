@@ -3,7 +3,7 @@ import Image from "next/image"
 
 const Logo = ({ className }: { className?: string }) => (
     <Image
-        src="https://placehold.co/115x32.png"
+        src="/QAIU-Logo.png"
         alt="QAIU Logo"
         width={115}
         height={32}
