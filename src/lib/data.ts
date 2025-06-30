@@ -48,3 +48,15 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     const posts = await db.collection('blogPosts').find({}).sort({ date: -1 }).toArray();
     return posts.map(mapMongoId) as unknown as BlogPost[];
 }
+
+export async function getBlogPostById(id: string): Promise<BlogPost | null> {
+    if (!ObjectId.isValid(id)) {
+        return null;
+    }
+    const db = await getDb();
+    const post = await db.collection('blogPosts').findOne({ _id: new ObjectId(id) });
+    if (!post) {
+        return null;
+    }
+    return mapMongoId(post as any) as unknown as BlogPost;
+}

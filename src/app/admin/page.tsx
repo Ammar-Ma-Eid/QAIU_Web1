@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getMembers, getUpcomingEvents, getPastEvents, getBlogPosts } from '@/lib/data';
@@ -260,6 +261,11 @@ export default async function AdminDashboardPage() {
                                             <TableCell className="font-medium">{event.title}</TableCell>
                                             <TableCell>{format(new Date(event.date), 'PPP')}</TableCell>
                                             <TableCell className="text-right space-x-2">
+                                                 <Button variant="outline" size="icon" asChild>
+                                                    <Link href={`/events/${event.id}`} target="_blank" aria-label="View event">
+                                                        <LinkIcon className="h-4 w-4" />
+                                                    </Link>
+                                                 </Button>
                                                  <Dialog>
                                                     <DialogTrigger asChild><Button variant="outline" size="icon"><Edit className="h-4 w-4" /></Button></DialogTrigger>
                                                     <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
@@ -276,7 +282,8 @@ export default async function AdminDashboardPage() {
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                                                             <AlertDialogDescription>This will permanently delete "{event.title}" from the database.</AlertDialogDescription>
-                                                        </AlertDialogHeader>
+                                                        </Aler
+tDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
                                                             <form action={async () => { 'use server'; await deleteEvent(event.id) }}>
@@ -334,6 +341,11 @@ export default async function AdminDashboardPage() {
                                         <TableCell>{post.author}</TableCell>
                                         <TableCell>{format(new Date(post.date), 'PPP')}</TableCell>
                                         <TableCell className="text-right space-x-2">
+                                            <Button variant="outline" size="icon" asChild>
+                                                <Link href={`/blog/${post.id}`} target="_blank" aria-label="View post">
+                                                    <LinkIcon className="h-4 w-4" />
+                                                </Link>
+                                            </Button>
                                             <Dialog>
                                                 <DialogTrigger asChild><Button variant="outline" size="icon"><Edit className="h-4 w-4" /></Button></DialogTrigger>
                                                 <DialogContent className="sm:max-w-lg">

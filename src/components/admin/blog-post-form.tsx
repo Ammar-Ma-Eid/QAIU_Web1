@@ -27,6 +27,7 @@ const formSchema = z.object({
     message: "Invalid date format.",
   }),
   excerpt: z.string().min(10, "Excerpt must be at least 10 characters."),
+  content: z.string().min(20, "Content must be at least 20 characters."),
 })
 
 type BlogPostFormValues = z.infer<typeof formSchema>
@@ -44,6 +45,7 @@ export function BlogPostForm({ post }: BlogPostFormProps) {
       author: post?.author || "",
       date: post ? format(new Date(post.date), "yyyy-MM-dd'T'HH:mm") : "",
       excerpt: post?.excerpt || "",
+      content: post?.content || "",
     },
   })
 
@@ -126,6 +128,19 @@ export function BlogPostForm({ post }: BlogPostFormProps) {
               <FormLabel>Excerpt</FormLabel>
               <FormControl>
                 <Textarea placeholder="A short summary of the post..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="content"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Content</FormLabel>
+              <FormControl>
+                <Textarea placeholder="The full content of the blog post..." {...field} rows={10} />
               </FormControl>
               <FormMessage />
             </FormItem>

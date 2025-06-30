@@ -37,7 +37,7 @@ export default async function BlogPage() {
                 </div>
               </div>
               <Button asChild variant="link" className="p-0 h-auto text-primary hover:text-primary/80">
-                <Link href="#">
+                <Link href={`/blog/${post.id}`}>
                   Read More <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

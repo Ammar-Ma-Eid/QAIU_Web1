@@ -25,4 +25,5 @@ export type BlogPost = {
   author: string;
   date: string; // ISO string
   excerpt: string;
+  content: string;
 };
