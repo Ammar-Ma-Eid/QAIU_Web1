@@ -116,7 +116,7 @@ export default async function AboutPage() {
 
         <section>
           <h2 className="font-headline text-3xl font-bold text-center mb-10">Our Team</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
             {otherMembers.map((member) => (
               <Card key={member.id} className="bg-card/60 backdrop-blur-sm border-border/50 overflow-hidden text-center pt-6 shadow-lg">
                 <div className="relative w-24 h-24 mx-auto rounded-full overflow-hidden border-2 border-primary/20">

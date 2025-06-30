@@ -70,7 +70,7 @@ export default async function AdminDashboardPage() {
       </div>
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard" className="w-full">
-            <TabsList className="grid w-full grid-cols-5 mb-8">
+            <TabsList className="mb-8 grid h-auto w-full grid-cols-1 sm:h-10 sm:grid-cols-5">
                 <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
                 <TabsTrigger value="members">Members</TabsTrigger>
                 <TabsTrigger value="events">Events</TabsTrigger>
@@ -295,7 +295,7 @@ export default async function AdminDashboardPage() {
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                                                             <AlertDialogDescription>This will permanently delete "{event.title}" from the database.</AlertDialogDescription>
-                                                        </AlertDialogHeader>
+                                                        </Header>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
                                                             <form action={async () => { 'use server'; await deleteEvent(event.id) }}>
