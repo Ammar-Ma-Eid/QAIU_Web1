@@ -437,7 +437,7 @@ export default async function AdminDashboardPage() {
                                                     <DialogHeader>
                                                         <DialogTitle>Edit Glossary Term</DialogTitle>
                                                         <DialogDescription>Update the term "{term.term}".</DialogDescription>
-                                                    </DialogHeader>
+                                                    </Header>
                                                     <GlossaryTermForm term={term} />
                                                 </DialogContent>
                                             </Dialog>
