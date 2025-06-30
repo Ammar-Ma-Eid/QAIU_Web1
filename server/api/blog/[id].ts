@@ -30,4 +30,20 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const client = await clientPromise;
+        const db = client.db(process.env.MONGODB_DB || 'qaiu');
+        const collection = db.collection('blog');
+        const post = await collection.findOne({ _id: new ObjectId(id) });
+        if (!post) {
+            return res.status(404).json({ error: 'Blog post not found' });
+        }
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(500).json({ error: 'Database connection or query failed', details: error.message });
+    }
+});
+
 module.exports = router;

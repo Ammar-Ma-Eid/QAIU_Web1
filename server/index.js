@@ -19,14 +19,14 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Mount routers
-app.use('/ai/api/members', membersRouter);
-app.use('/ai/api/members', membersIdRouter);
-app.use('/ai/api/blog', blogRouter);
-app.use('/ai/api/blog', blogIdRouter);
-app.use('/ai/api/events', eventsRouter);
-app.use('/ai/api/events', eventsIdRouter);
-app.use('/ai/api/contact', contactRouter);
-app.use('/ai/api/login', loginRouter);
+app.use('/api/members', membersRouter);
+app.use('/api/members', membersIdRouter);
+app.use('/api/blog', blogRouter);
+app.use('/api/blog', blogIdRouter);
+app.use('/api/events', eventsRouter);
+app.use('/api/events', eventsIdRouter);
+app.use('/api/contact', contactRouter);
+app.use('/api/login', loginRouter);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
