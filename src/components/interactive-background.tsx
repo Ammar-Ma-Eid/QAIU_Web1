@@ -46,7 +46,7 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
           y: Math.random() * canvas.offsetHeight,
           vx: (Math.random() - 0.5) * 0.3,
           vy: (Math.random() - 0.5) * 0.3,
-          radius: isAtom ? Math.random() * 2 + 2 : Math.random() * 1.5 + 0.5,
+          radius: isAtom ? Math.random() * 2 + 3 : Math.random() * 2 + 1,
           type: isAtom ? 'atom' : 'dot',
           rotation: Math.random() * Math.PI * 2,
           rotationSpeed: (Math.random() - 0.5) * 0.02,
@@ -80,7 +80,7 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
 
           ctx.strokeStyle = particleColor;
           ctx.fillStyle = particleColor;
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = 0.6;
 
           // Draw nucleus
           ctx.beginPath();
@@ -105,7 +105,7 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
         }
       });
 
-      const maxDistance = 150;
+      const maxDistance = 180;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const p1 = particles[i];
@@ -117,7 +117,7 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
             ctx.strokeStyle = `hsla(${h}, ${s}, ${l}, ${1 - distance / maxDistance})`;
-            ctx.lineWidth = 0.5;
+            ctx.lineWidth = 0.6;
             ctx.stroke();
           }
         }
