@@ -104,3 +104,31 @@ export async function deleteBlogPost(id: string) {
   revalidatePath('/admin');
   revalidatePath('/blog');
 }
+
+// --- Glossary Term Actions ---
+export async function addGlossaryTerm(data: any) {
+  const db = await getDb();
+  await db.collection('glossaryTerms').insertOne(data);
+  revalidatePath('/admin');
+  revalidatePath('/glossary');
+}
+
+export async function updateGlossaryTerm(id: string, data: any) {
+  if (!ObjectId.isValid(id)) {
+    throw new Error('Invalid ID');
+  }
+  const db = await getDb();
+  await db.collection('glossaryTerms').updateOne({ _id: new ObjectId(id) }, { $set: data });
+  revalidatePath('/admin');
+  revalidatePath('/glossary');
+}
+
+export async function deleteGlossaryTerm(id: string) {
+  if (!ObjectId.isValid(id)) {
+    throw new Error('Invalid ID');
+  }
+  const db = await getDb();
+  await db.collection('glossaryTerms').deleteOne({ _id: new ObjectId(id) });
+  revalidatePath('/admin');
+  revalidatePath('/glossary');
+}

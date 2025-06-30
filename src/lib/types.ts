@@ -29,3 +29,10 @@ export type BlogPost = {
   imageUrl: string;
   dataAiHint: string;
 };
+
+export type GlossaryTerm = {
+  id: string;
+  term: string;
+  definition: string;
+  category: string;
+};

@@ -1,13 +1,17 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Atom, BrainCircuit, Cpu, CheckCircle, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, Atom, BrainCircuit, Cpu, CheckCircle, Mail, MapPin, Phone, Layers, Link2, Waves, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { ContactForm } from '@/components/contact-form';
 import ClientInteractiveBackground from '@/components/client-interactive-background';
+import { getUpcomingEvents } from '@/lib/data';
+import { format } from 'date-fns';
 
 
-export default function Home() {
+export default async function Home() {
+   const upcomingEvents = await getUpcomingEvents();
+
   const quantumApplications = [
     { title: 'Cryptography', description: 'Breaking or creating ultra-secure encryption' },
     { title: 'Drug discovery', description: 'Simulating molecules to speed up medicine development' },
@@ -16,6 +20,24 @@ export default function Home() {
     { title: 'Material science', description: 'Designing new materials at the atomic level' },
     { title: 'Weather forecasting', description: 'Improving climate and weather prediction accuracy' },
     { title: 'Financial modeling', description: 'Analyzing risk and markets more effectively' },
+  ];
+
+  const coreConcepts = [
+    {
+      icon: <Layers className="h-8 w-8 text-primary" />,
+      title: 'Superposition',
+      description: 'Qubits can exist in multiple states (0 and 1) at once, enabling massive parallel processing.',
+    },
+    {
+      icon: <Link2 className="h-8 w-8 text-primary" />,
+      title: 'Entanglement',
+      description: 'Two or more qubits become linked, their fates intertwined regardless of the distance separating them.',
+    },
+    {
+      icon: <Waves className="h-8 w-8 text-primary" />,
+      title: 'Interference',
+      description: 'Quantum states can interfere with each other, used to amplify correct answers and cancel incorrect ones.',
+    }
   ];
 
   return (
@@ -80,42 +102,82 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="relative container mx-auto px-4 pb-20 md:pb-32">
+       <section className="relative container mx-auto px-4 pb-20 md:pb-32">
         <div className="text-center mb-16">
-            <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tighter">Events and Activities</h2>
+          <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tighter">Upcoming Events</h2>
+          <p className="max-w-2xl mx-auto mt-4 text-lg text-muted-foreground">
+            Join our workshops, seminars, and hackathons.
+          </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-lg bg-card border flex flex-col text-center shadow-lg">
-                <h3 className="font-headline text-2xl font-bold mb-4">QBRRONZE</h3>
-                <p className="text-muted-foreground flex-grow">An exciting event focused on quantum computing basics and applications.</p>
-                <Button asChild variant="link" className="mt-6">
-                    <Link href="#">Know More</Link>
-                </Button>
-            </div>
-            <div className="p-8 rounded-lg bg-card border flex flex-col text-center shadow-lg">
-                <h3 className="font-headline text-2xl font-bold mb-4">Q CITY</h3>
-                <p className="text-muted-foreground flex-grow">A collaborative event exploring the intersection of quantum computing and smart cities.</p>
-                <Button asChild variant="link" className="mt-6">
-                    <Link href="#">Know More</Link>
-                </Button>
-            </div>
-            <div className="p-8 rounded-lg bg-card border flex flex-col text-center shadow-lg">
-                <h3 className="font-headline text-2xl font-bold mb-4">QCOBALT</h3>
-                <p className="text-muted-foreground flex-grow">An advanced workshop diving deep into quantum algorithms and their applications.</p>
-                <Button asChild variant="link" className="mt-6">
-                    <Link href="#">Know More</Link>
-                </Button>
-            </div>
+        {upcomingEvents.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {upcomingEvents.slice(0, 3).map((event) => (
+              <Link href={`/events/${event.id}`} key={event.id} className="group block">
+                <Card className="flex flex-col bg-card/60 backdrop-blur-sm border-border/50 shadow-lg overflow-hidden h-full transition-all group-hover:border-primary/50 group-hover:shadow-xl">
+                  <div className="relative aspect-video">
+                    <Image
+                      src={event.imageUrl}
+                      alt={event.title}
+                      fill
+                      className="object-cover"
+                      data-ai-hint={event.dataAiHint || 'event image'}
+                    />
+                  </div>
+                  <CardHeader>
+                    <CardTitle className="font-headline text-2xl leading-tight">{event.title}</CardTitle>
+                    <div className="flex items-center text-sm text-muted-foreground pt-2">
+                      <Calendar className="mr-2 h-4 w-4" />
+                      <span>{format(new Date(event.date), 'PPP')}</span>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <p className="text-muted-foreground line-clamp-2">{event.description}</p>
+                  </CardContent>
+                  <CardFooter>
+                    <div className="text-primary font-medium flex items-center transition-transform group-hover:translate-x-1 mt-auto pt-2">
+                        View Details
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                  </CardFooter>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16 text-muted-foreground bg-card/60 backdrop-blur-sm border-border/50 rounded-lg shadow-lg">
+            <p>No upcoming events scheduled. Please check back soon!</p>
+          </div>
+        )}
+         <div className="text-center mt-12">
+            <Button asChild>
+                <Link href="/events">View All Events <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
         </div>
       </section>
 
-      <div className="relative container mx-auto pb-20 md:pb-32">
-        <div className="relative h-96 w-full flex items-center justify-center">
-            <Image src="https://placehold.co/600x400" alt="Quantum Computer" width={450} height={300} className="absolute rounded-lg shadow-2xl animate-float-1" data-ai-hint="quantum computer" />
-            <Image src="https://placehold.co/600x400" alt="AI Neural Network" width={300} height={200} className="absolute rounded-lg shadow-2xl animate-float-2" data-ai-hint="neural network" />
-            <Image src="https://placehold.co/600x400" alt="Abstract Code" width={200} height={150} className="absolute rounded-lg shadow-2xl animate-float-3" data-ai-hint="abstract code" />
+      <section className="relative container mx-auto px-4 pb-20 md:pb-32">
+        <div className="text-center mb-16">
+            <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tighter">Core Quantum Concepts</h2>
+             <p className="max-w-2xl mx-auto mt-4 text-lg text-muted-foreground">
+                Understand the fundamental principles that power quantum computing.
+            </p>
         </div>
-      </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {coreConcepts.map((concept) => (
+                <div key={concept.title} className="p-8 rounded-lg bg-card/50 backdrop-blur-sm border flex flex-col items-center text-center shadow-lg">
+                    <div className="p-3 mb-4 bg-primary/10 rounded-full">
+                        {concept.icon}
+                    </div>
+                    <h3 className="font-headline text-xl font-semibold mb-2">{concept.title}</h3>
+                    <p className="text-muted-foreground text-sm flex-grow">{concept.description}</p>
+                     <Button asChild variant="link" className="mt-4">
+                        <Link href="/glossary">Learn More</Link>
+                    </Button>
+                </div>
+            ))}
+        </div>
+      </section>
+
 
        <section className="bg-foreground text-background">
         <div className="container mx-auto px-4 py-16 md:py-24">

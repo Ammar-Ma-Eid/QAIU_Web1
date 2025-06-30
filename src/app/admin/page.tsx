@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { getMembers, getUpcomingEvents, getPastEvents, getBlogPosts } from '@/lib/data';
+import { getMembers, getUpcomingEvents, getPastEvents, getBlogPosts, getGlossaryTerms } from '@/lib/data';
 import { format } from 'date-fns';
-import { Users, Calendar, BarChart3, LogOut, PlusCircle, Edit, Trash2, Newspaper, Link as LinkIcon } from 'lucide-react';
+import { Users, Calendar, BarChart3, LogOut, PlusCircle, Edit, Trash2, Newspaper, Link as LinkIcon, BookMarked } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { logout } from '@/app/login/actions';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -29,21 +29,24 @@ import {
 import { MemberForm } from '@/components/admin/member-form';
 import { EventForm } from '@/components/admin/event-form';
 import { BlogPostForm } from '@/components/admin/blog-post-form';
-import { deleteMember, deleteEvent, deleteBlogPost } from './actions';
+import { GlossaryTermForm } from '@/components/admin/glossary-term-form';
+import { deleteMember, deleteEvent, deleteBlogPost, deleteGlossaryTerm } from './actions';
 import { DeleteButton } from '@/components/admin/delete-button';
 
 export default async function AdminDashboardPage() {
-  const [members, upcomingEvents, pastEvents, blogPosts] = await Promise.all([
+  const [members, upcomingEvents, pastEvents, blogPosts, glossaryTerms] = await Promise.all([
     getMembers(),
     getUpcomingEvents(),
     getPastEvents(),
-    getBlogPosts()
+    getBlogPosts(),
+    getGlossaryTerms()
   ]);
 
   const totalMembers = members.length;
   const totalUpcomingEvents = upcomingEvents.length;
   const totalPastEvents = pastEvents.length;
   const totalBlogPosts = blogPosts.length;
+  const totalGlossaryTerms = glossaryTerms.length;
 
   return (
     <div className="min-h-screen bg-secondary">
@@ -67,15 +70,16 @@ export default async function AdminDashboardPage() {
       </div>
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-8">
+            <TabsList className="grid w-full grid-cols-5 mb-8">
                 <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
                 <TabsTrigger value="members">Members</TabsTrigger>
                 <TabsTrigger value="events">Events</TabsTrigger>
                 <TabsTrigger value="blog">Blog</TabsTrigger>
+                <TabsTrigger value="glossary">Glossary</TabsTrigger>
             </TabsList>
 
             <TabsContent value="dashboard">
-                <section className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <section className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">Total Members</CardTitle>
@@ -110,6 +114,15 @@ export default async function AdminDashboardPage() {
                     </CardHeader>
                     <CardContent>
                       <div className="text-2xl font-bold">{totalBlogPosts}</div>
+                    </CardContent>
+                  </Card>
+                   <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Glossary Terms</CardTitle>
+                      <BookMarked className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{totalGlossaryTerms}</div>
                     </CardContent>
                   </Card>
                 </section>
@@ -282,8 +295,7 @@ export default async function AdminDashboardPage() {
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                                                             <AlertDialogDescription>This will permanently delete "{event.title}" from the database.</AlertDialogDescription>
-                                                        </Aler
-tDialogHeader>
+                                                        </AlertDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
                                                             <form action={async () => { 'use server'; await deleteEvent(event.id) }}>
@@ -385,6 +397,80 @@ tDialogHeader>
                     </CardContent>
                 </Card>
             </TabsContent>
+
+            <TabsContent value="glossary">
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between">
+                        <CardTitle>Glossary Terms</CardTitle>
+                        <Dialog>
+                            <DialogTrigger asChild><Button size="sm"><PlusCircle className="mr-2 h-4 w-4" />Add Term</Button></DialogTrigger>
+                            <DialogContent className="sm:max-w-lg">
+                                <DialogHeader>
+                                    <DialogTitle>Add New Glossary Term</DialogTitle>
+                                    <DialogDescription>Add a new term and its definition to the glossary.</DialogDescription>
+                                </DialogHeader>
+                                <GlossaryTermForm />
+                            </DialogContent>
+                        </Dialog>
+                    </CardHeader>
+                    <CardContent>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Term</TableHead>
+                                    <TableHead>Category</TableHead>
+                                    <TableHead>Definition</TableHead>
+                                    <TableHead className="text-right">Actions</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {glossaryTerms.length > 0 ? (
+                                    glossaryTerms.map((term) => (
+                                    <TableRow key={term.id}>
+                                        <TableCell className="font-medium">{term.term}</TableCell>
+                                        <TableCell>{term.category}</TableCell>
+                                        <TableCell className="max-w-sm truncate">{term.definition}</TableCell>
+                                        <TableCell className="text-right space-x-2">
+                                            <Dialog>
+                                                <DialogTrigger asChild><Button variant="outline" size="icon"><Edit className="h-4 w-4" /></Button></DialogTrigger>
+                                                <DialogContent className="sm:max-w-lg">
+                                                    <DialogHeader>
+                                                        <DialogTitle>Edit Glossary Term</DialogTitle>
+                                                        <DialogDescription>Update the term "{term.term}".</DialogDescription>
+                                                    </DialogHeader>
+                                                    <GlossaryTermForm term={term} />
+                                                </DialogContent>
+                                            </Dialog>
+                                            <AlertDialog>
+                                                <AlertDialogTrigger asChild><Button variant="outline" size="icon" className="text-destructive hover:text-destructive hover:bg-destructive/10"><Trash2 className="h-4 w-4" /></Button></AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                                        <AlertDialogDescription>This will permanently delete "{term.term}" from the glossary.</AlertDialogDescription>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <form action={async () => { 'use server'; await deleteGlossaryTerm(term.id) }}>
+                                                            <DeleteButton />
+                                                        </form>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                        </TableCell>
+                                    </TableRow>
+                                ))) : (
+                                    <TableRow>
+                                        <TableCell colSpan={4} className="h-24 text-center">
+                                            No glossary terms found.
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </Card>
+            </TabsContent>
+
         </Tabs>
       </div>
     </div>

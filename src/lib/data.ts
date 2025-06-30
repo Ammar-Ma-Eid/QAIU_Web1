@@ -1,5 +1,5 @@
 import clientPromise from './mongodb';
-import type { Member, Event, BlogPost } from './types';
+import type { Member, Event, BlogPost, GlossaryTerm } from './types';
 import { ObjectId } from 'mongodb';
 
 async function getDb() {
@@ -59,4 +59,34 @@ export async function getBlogPostById(id: string): Promise<BlogPost | null> {
         return null;
     }
     return mapMongoId(post as any) as unknown as BlogPost;
+}
+
+export async function getGlossaryTerms(): Promise<GlossaryTerm[]> {
+    const db = await getDb();
+    const terms = await db.collection('glossaryTerms').find({}).sort({ term: 1 }).toArray();
+    return terms.map(mapMongoId) as unknown as GlossaryTerm[];
+}
+
+export async function getGlossaryTermsGroupedByCategory(): Promise<Record<string, GlossaryTerm[]>> {
+    const terms = await getGlossaryTerms();
+    return terms.reduce((acc, term) => {
+        const { category } = term;
+        if (!acc[category]) {
+            acc[category] = [];
+        }
+        acc[category].push(term);
+        return acc;
+    }, {} as Record<string, GlossaryTerm[]>);
+}
+
+export async function getGlossaryTermById(id: string): Promise<GlossaryTerm | null> {
+    if (!ObjectId.isValid(id)) {
+        return null;
+    }
+    const db = await getDb();
+    const term = await db.collection('glossaryTerms').findOne({ _id: new ObjectId(id) });
+    if (!term) {
+        return null;
+    }
+    return mapMongoId(term as any) as unknown as GlossaryTerm;
 }
