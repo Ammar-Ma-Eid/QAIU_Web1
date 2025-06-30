@@ -8,6 +8,7 @@ const Logo = ({ className }: { className?: string }) => (
         width={115}
         height={32}
         className={cn("h-8 w-auto", className)}
+        priority
     />
 );
 
