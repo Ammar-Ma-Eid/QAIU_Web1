@@ -31,7 +31,7 @@ export default async function Home() {
       <section className="relative">
         <div className="absolute inset-0 z-0 opacity-10">
             <Image
-                src="https://placehold.co/1600x900"
+                src="https://placehold.co/1600x900.png"
                 alt="Quantum computer background"
                 fill
                 className="object-cover"
