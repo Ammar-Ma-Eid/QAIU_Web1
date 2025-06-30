@@ -5,6 +5,9 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import { Toaster } from "@/components/ui/toaster";
 import { Inter, Space_Grotesk as SpaceGrotesk } from 'next/font/google';
+import GlobalLoader from '@/components/global-loader';
+import { NavigationEvents } from '@/components/navigation-events';
+import { Suspense } from 'react';
 
 const fontBody = Inter({
   subsets: ['latin'],
@@ -35,6 +38,10 @@ export default function RootLayout({
         <main className="min-h-screen">{children}</main>
         <Footer />
         <Toaster />
+        <GlobalLoader />
+        <Suspense fallback={null}>
+          <NavigationEvents />
+        </Suspense>
       </body>
     </html>
   );
