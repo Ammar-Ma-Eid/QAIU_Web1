@@ -67,6 +67,12 @@ export async function getGlossaryTerms(): Promise<GlossaryTerm[]> {
     return terms.map(mapMongoId) as unknown as GlossaryTerm[];
 }
 
+export async function getFeaturedGlossaryTerms(): Promise<GlossaryTerm[]> {
+    const db = await getDb();
+    const terms = await db.collection('glossaryTerms').find({ featured: true }).limit(3).toArray();
+    return terms.map(mapMongoId) as unknown as GlossaryTerm[];
+}
+
 export async function getGlossaryTermsGroupedByCategory(): Promise<Record<string, GlossaryTerm[]>> {
     const terms = await getGlossaryTerms();
     return terms.reduce((acc, term) => {

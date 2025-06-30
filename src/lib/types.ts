@@ -35,4 +35,6 @@ export type GlossaryTerm = {
   term: string;
   definition: string;
   category: string;
+  featured?: boolean;
+  icon?: string;
 };

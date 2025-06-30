@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,6 +16,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { Checkbox } from "@/components/ui/checkbox"
 import { useToast } from "@/hooks/use-toast"
 import { addGlossaryTerm, updateGlossaryTerm } from "@/app/admin/actions"
 import type { GlossaryTerm } from "@/lib/types"
@@ -25,6 +27,8 @@ const formSchema = z.object({
   term: z.string().min(2, "Term must be at least 2 characters."),
   definition: z.string().min(10, "Definition must be at least 10 characters."),
   category: z.string().min(2, "Category must be selected."),
+  featured: z.boolean().optional(),
+  icon: z.string().optional(),
 })
 
 type GlossaryTermFormValues = z.infer<typeof formSchema>
@@ -43,6 +47,8 @@ export function GlossaryTermForm({ term: glossaryTerm }: GlossaryTermFormProps) 
       term: glossaryTerm?.term || "",
       definition: glossaryTerm?.definition || "",
       category: glossaryTerm?.category || "",
+      featured: glossaryTerm?.featured || false,
+      icon: glossaryTerm?.icon || "",
     },
   })
 
@@ -117,6 +123,44 @@ export function GlossaryTermForm({ term: glossaryTerm }: GlossaryTermFormProps) 
               <FormControl>
                 <Textarea placeholder="Explain the term..." {...field} rows={5} />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="featured"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel>
+                  Feature on homepage
+                </FormLabel>
+                <FormDescription>
+                  If checked, this term may appear on the homepage.
+                </FormDescription>
+              </div>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="icon"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Icon Name (Optional)</FormLabel>
+              <FormControl>
+                <Input placeholder="e.g. layers" {...field} value={field.value ?? ''} />
+              </FormControl>
+              <FormDescription>
+                A lucide-react icon name to display for this term if featured.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

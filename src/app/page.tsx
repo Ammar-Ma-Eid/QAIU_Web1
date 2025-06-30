@@ -1,16 +1,20 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Atom, BrainCircuit, Cpu, CheckCircle, Mail, MapPin, Phone, Layers, Link2, Waves, Calendar } from 'lucide-react';
+import { ArrowRight, Atom, BrainCircuit, Cpu, CheckCircle, Mail, MapPin, Phone, Link2, Waves, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { ContactForm } from '@/components/contact-form';
 import ClientInteractiveBackground from '@/components/client-interactive-background';
-import { getUpcomingEvents } from '@/lib/data';
+import { getUpcomingEvents, getFeaturedGlossaryTerms } from '@/lib/data';
 import { format } from 'date-fns';
+import DynamicIcon from '@/components/dynamic-icon';
 
 
 export default async function Home() {
-   const upcomingEvents = await getUpcomingEvents();
+   const [upcomingEvents, featuredGlossaryTerms] = await Promise.all([
+    getUpcomingEvents(),
+    getFeaturedGlossaryTerms(),
+  ]);
 
   const quantumApplications = [
     { title: 'Cryptography', description: 'Breaking or creating ultra-secure encryption' },
@@ -20,24 +24,6 @@ export default async function Home() {
     { title: 'Material science', description: 'Designing new materials at the atomic level' },
     { title: 'Weather forecasting', description: 'Improving climate and weather prediction accuracy' },
     { title: 'Financial modeling', description: 'Analyzing risk and markets more effectively' },
-  ];
-
-  const coreConcepts = [
-    {
-      icon: <Layers className="h-8 w-8 text-primary" />,
-      title: 'Superposition',
-      description: 'Qubits can exist in multiple states (0 and 1) at once, enabling massive parallel processing.',
-    },
-    {
-      icon: <Link2 className="h-8 w-8 text-primary" />,
-      title: 'Entanglement',
-      description: 'Two or more qubits become linked, their fates intertwined regardless of the distance separating them.',
-    },
-    {
-      icon: <Waves className="h-8 w-8 text-primary" />,
-      title: 'Interference',
-      description: 'Quantum states can interfere with each other, used to amplify correct answers and cancel incorrect ones.',
-    }
   ];
 
   return (
@@ -163,19 +149,24 @@ export default async function Home() {
             </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {coreConcepts.map((concept) => (
-                <div key={concept.title} className="p-8 rounded-lg bg-card/50 backdrop-blur-sm border flex flex-col items-center text-center shadow-lg">
+            {featuredGlossaryTerms.map((concept) => (
+                <div key={concept.id} className="p-8 rounded-lg bg-card/50 backdrop-blur-sm border flex flex-col items-center text-center shadow-lg">
                     <div className="p-3 mb-4 bg-primary/10 rounded-full">
-                        {concept.icon}
+                        <DynamicIcon name={concept.icon} className="h-8 w-8 text-primary" />
                     </div>
-                    <h3 className="font-headline text-xl font-semibold mb-2">{concept.title}</h3>
-                    <p className="text-muted-foreground text-sm flex-grow">{concept.description}</p>
+                    <h3 className="font-headline text-xl font-semibold mb-2">{concept.term}</h3>
+                    <p className="text-muted-foreground text-sm flex-grow">{concept.definition}</p>
                      <Button asChild variant="link" className="mt-4">
                         <Link href="/glossary">Learn More</Link>
                     </Button>
                 </div>
             ))}
         </div>
+        {featuredGlossaryTerms.length === 0 && (
+             <div className="text-center py-16 text-muted-foreground bg-card/60 backdrop-blur-sm border-border/50 rounded-lg shadow-lg max-w-5xl mx-auto">
+                <p>Core concepts will be displayed here once they are added to the glossary and featured.</p>
+            </div>
+        )}
       </section>
 
 
