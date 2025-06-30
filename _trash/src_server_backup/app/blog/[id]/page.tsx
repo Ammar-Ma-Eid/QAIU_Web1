@@ -1,0 +1,1 @@
+// This file has been migrated to /client/src/app/blog/[id]/page.tsx
