@@ -3,7 +3,6 @@ import { ArrowRight, Atom, BrainCircuit, Cpu, CheckCircle, Mail, MapPin, Phone, 
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { ContactForm } from '@/components/contact-form';
 import ClientInteractiveBackground from '@/components/client-interactive-background';
 import { getUpcomingEvents, getFeaturedGlossaryTerms } from '@/lib/data';
 import { format } from 'date-fns';
@@ -197,12 +196,12 @@ export default async function Home() {
         </div>
       </section>
       
-      <section id="contact" className="bg-secondary">
+      <section className="bg-secondary">
         <div className="container mx-auto px-4 py-16 md:py-24">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tighter">GET IN TOUCH WITH US</h2>
+            <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tighter">Get In Touch</h2>
             <p className="max-w-3xl mx-auto mt-4 text-lg text-muted-foreground">
-              We are here to help you with any questions or inquiries you may have. Please feel free to reach out to us using the contact form below, and we will get back to you as soon as possible.
+              Have questions or want to get involved? We'd love to hear from you.
             </p>
           </div>
 
@@ -224,11 +223,14 @@ export default async function Home() {
             </div>
           </div>
 
-          <Card className="max-w-2xl mx-auto mt-12 bg-card">
-            <CardContent className="p-8">
-              <ContactForm />
-            </CardContent>
-          </Card>
+          <div className="text-center mt-12">
+              <Button asChild size="lg">
+                  <Link href="/contact">
+                      Send Us a Message
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+              </Button>
+          </div>
         </div>
       </section>
     </div>
