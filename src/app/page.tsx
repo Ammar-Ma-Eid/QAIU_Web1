@@ -1,19 +1,32 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Atom, BrainCircuit, Cpu, CheckCircle, Mail, MapPin, Phone, Link2, Waves, Calendar } from 'lucide-react';
+import { ArrowRight, BrainCircuit, CheckCircle, Mail, MapPin, Phone, Calendar, FlaskConical, Code } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import ClientInteractiveBackground from '@/components/client-interactive-background';
-import { getUpcomingEvents, getFeaturedGlossaryTerms } from '@/lib/data';
+import { getUpcomingEvents } from '@/lib/data';
 import { format } from 'date-fns';
-import DynamicIcon from '@/components/dynamic-icon';
-
 
 export default async function Home() {
-   const [upcomingEvents, featuredGlossaryTerms] = await Promise.all([
-    getUpcomingEvents(),
-    getFeaturedGlossaryTerms(),
-  ]);
+  const upcomingEvents = await getUpcomingEvents();
+
+  const quantumJobs = [
+    {
+      title: 'Quantum Research Scientist',
+      description: 'Design and conduct experiments on quantum systems. Develop novel quantum algorithms and contribute to foundational quantum theory. Requires a PhD in Physics or a related field.',
+      icon: FlaskConical,
+    },
+    {
+      title: 'Quantum Software Engineer',
+      description: 'Build software tools and platforms to control quantum hardware. Implement quantum algorithms on simulators and real devices, and optimize for performance and error correction.',
+      icon: Code,
+    },
+    {
+      title: 'Quantum Machine Learning Specialist',
+      description: 'Explore the intersection of quantum computing and AI. Develop quantum machine learning models to solve problems in optimization, classification, and generative modeling.',
+      icon: BrainCircuit,
+    },
+  ];
 
   const quantumApplications = [
     { title: 'Cryptography', description: 'Breaking or creating ultra-secure encryption' },
@@ -116,30 +129,33 @@ export default async function Home() {
 
       <section className="relative container mx-auto px-4 pb-20 md:pb-32">
         <div className="text-center mb-16">
-            <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tighter">Core Quantum Concepts</h2>
-             <p className="max-w-2xl mx-auto mt-4 text-lg text-muted-foreground">
-                Understand the fundamental principles that power quantum computing.
-            </p>
+          <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tighter">Careers in Quantum</h2>
+          <p className="max-w-2xl mx-auto mt-4 text-lg text-muted-foreground">
+            Explore high-demand roles at the forefront of the quantum revolution.
+          </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {featuredGlossaryTerms.map((concept) => (
-                <div key={concept.id} className="p-8 rounded-lg bg-card/50 backdrop-blur-sm border flex flex-col items-center text-center shadow-lg">
-                    <div className="p-3 mb-4 bg-primary/10 rounded-full">
-                        <DynamicIcon name={concept.icon} className="h-8 w-8 text-primary" />
-                    </div>
-                    <h3 className="font-headline text-xl font-semibold mb-2">{concept.term}</h3>
-                    <p className="text-muted-foreground text-sm flex-grow">{concept.definition}</p>
-                     <Button asChild variant="link" className="mt-4">
-                        <Link href="/glossary">Learn More</Link>
-                    </Button>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {quantumJobs.map((job, index) => (
+            <Card key={index} className="flex flex-col bg-card/60 backdrop-blur-sm border-border/50 shadow-lg overflow-hidden h-full">
+              <CardHeader>
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-primary/10 rounded-full">
+                    <job.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle className="font-headline text-xl leading-tight">{job.title}</CardTitle>
                 </div>
-            ))}
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <p className="text-muted-foreground">{job.description}</p>
+              </CardContent>
+              <CardFooter>
+                <Button asChild variant="secondary" className="w-full">
+                  <Link href="/contact">Inquire Now</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
         </div>
-        {featuredGlossaryTerms.length === 0 && (
-             <div className="text-center py-16 text-muted-foreground bg-card/60 backdrop-blur-sm border-border/50 rounded-lg shadow-lg max-w-5xl mx-auto">
-                <p>Core concepts will be displayed here once they are added to the glossary and featured.</p>
-            </div>
-        )}
       </section>
 
 
