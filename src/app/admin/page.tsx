@@ -210,7 +210,7 @@ export default async function AdminDashboardPage() {
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
                                                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <form action={async () => { 'use server'; await deleteMember(member.id) }}>
+                                                        <form action={deleteMember.bind(null, member.id)}>
                                                             <DeleteButton />
                                                         </form>
                                                     </AlertDialogFooter>
@@ -295,10 +295,10 @@ export default async function AdminDashboardPage() {
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                                                             <AlertDialogDescription>This will permanently delete "{event.title}" from the database.</AlertDialogDescription>
-                                                        </Header>
+                                                        </AlertDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <form action={async () => { 'use server'; await deleteEvent(event.id) }}>
+                                                            <form action={deleteEvent.bind(null, event.id)}>
                                                                 <DeleteButton />
                                                             </form>
                                                         </AlertDialogFooter>
@@ -377,7 +377,7 @@ export default async function AdminDashboardPage() {
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
                                                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <form action={async () => { 'use server'; await deleteBlogPost(post.id) }}>
+                                                        <form action={deleteBlogPost.bind(null, post.id)}>
                                                             <DeleteButton />
                                                         </form>
                                                     </AlertDialogFooter>
@@ -437,7 +437,7 @@ export default async function AdminDashboardPage() {
                                                     <DialogHeader>
                                                         <DialogTitle>Edit Glossary Term</DialogTitle>
                                                         <DialogDescription>Update the term "{term.term}".</DialogDescription>
-                                                    </Header>
+                                                    </DialogHeader>
                                                     <GlossaryTermForm term={term} />
                                                 </DialogContent>
                                             </Dialog>
@@ -450,7 +450,7 @@ export default async function AdminDashboardPage() {
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
                                                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <form action={async () => { 'use server'; await deleteGlossaryTerm(term.id) }}>
+                                                        <form action={deleteGlossaryTerm.bind(null, term.id)}>
                                                             <DeleteButton />
                                                         </form>
                                                     </AlertDialogFooter>
