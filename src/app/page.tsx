@@ -148,11 +148,6 @@ export default async function Home() {
               <CardContent className="flex-grow">
                 <p className="text-muted-foreground">{job.description}</p>
               </CardContent>
-              <CardFooter>
-                <Button asChild variant="secondary" className="w-full">
-                  <Link href="/contact">Inquire Now</Link>
-                </Button>
-              </CardFooter>
             </Card>
           ))}
         </div>
