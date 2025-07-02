@@ -61,32 +61,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <div className="relative container mx-auto px-4 pb-20 md:pb-32">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-lg bg-card/50 backdrop-blur-sm border flex flex-col items-center text-center shadow-lg">
-                <div className="p-3 mb-4 bg-primary/10 rounded-full">
-                    <Atom className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="font-headline text-xl font-semibold mb-2">Quantum Computing</h3>
-                <p className="text-muted-foreground text-sm">Delve into the principles of quantum mechanics and their application in computation.</p>
-            </div>
-            <div className="p-8 rounded-lg bg-card/50 backdrop-blur-sm border flex flex-col items-center text-center shadow-lg">
-                 <div className="p-3 mb-4 bg-primary/10 rounded-full">
-                    <BrainCircuit className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="font-headline text-xl font-semibold mb-2">Artificial Intelligence</h3>
-                <p className="text-muted-foreground text-sm">Harness the power of machine learning and neural networks to solve complex problems.</p>
-            </div>
-            <div className="p-8 rounded-lg bg-card/50 backdrop-blur-sm border flex flex-col items-center text-center shadow-lg">
-                 <div className="p-3 mb-4 bg-primary/10 rounded-full">
-                    <Cpu className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="font-headline text-xl font-semibold mb-2">The Intersection</h3>
-                <p className="text-muted-foreground text-sm">Innovate at the cutting-edge intersection where quantum meets AI to unlock new possibilities.</p>
-            </div>
-        </div>
-      </div>
-
        <section className="relative container mx-auto px-4 pb-20 md:pb-32">
         <div className="text-center mb-16">
           <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tighter">Upcoming Events</h2>
