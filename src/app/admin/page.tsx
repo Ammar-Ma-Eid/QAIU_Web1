@@ -139,7 +139,7 @@ export default async function AdminDashboardPage() {
                                     Add Member
                                 </Button>
                             </DialogTrigger>
-                            <DialogContent className="sm:max-w-[425px]">
+                            <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
                                 <DialogHeader>
                                     <DialogTitle>Add New Member</DialogTitle>
                                     <DialogDescription>
@@ -185,7 +185,7 @@ export default async function AdminDashboardPage() {
                                                         <Edit className="h-4 w-4" />
                                                     </Button>
                                                 </DialogTrigger>
-                                                <DialogContent className="sm:max-w-[425px]">
+                                                <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
                                                     <DialogHeader>
                                                         <DialogTitle>Edit Member</DialogTitle>
                                                          <DialogDescription>
@@ -326,7 +326,7 @@ export default async function AdminDashboardPage() {
                         <CardTitle>Blog Posts</CardTitle>
                         <Dialog>
                             <DialogTrigger asChild><Button size="sm"><PlusCircle className="mr-2 h-4 w-4" />Add Post</Button></DialogTrigger>
-                            <DialogContent className="sm:max-w-lg">
+                            <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
                                 <DialogHeader>
                                     <DialogTitle>Add New Blog Post</DialogTitle>
                                     <DialogDescription>Write a new blog post. Click save when you're done.</DialogDescription>
@@ -360,7 +360,7 @@ export default async function AdminDashboardPage() {
                                             </Button>
                                             <Dialog>
                                                 <DialogTrigger asChild><Button variant="outline" size="icon"><Edit className="h-4 w-4" /></Button></DialogTrigger>
-                                                <DialogContent className="sm:max-w-lg">
+                                                <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
                                                     <DialogHeader>
                                                         <DialogTitle>Edit Blog Post</DialogTitle>
                                                         <DialogDescription>Update the post "{post.title}".</DialogDescription>
@@ -404,7 +404,7 @@ export default async function AdminDashboardPage() {
                         <CardTitle>Glossary Terms</CardTitle>
                         <Dialog>
                             <DialogTrigger asChild><Button size="sm"><PlusCircle className="mr-2 h-4 w-4" />Add Term</Button></DialogTrigger>
-                            <DialogContent className="sm:max-w-lg">
+                            <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
                                 <DialogHeader>
                                     <DialogTitle>Add New Glossary Term</DialogTitle>
                                     <DialogDescription>Add a new term and its definition to the glossary.</DialogDescription>
@@ -433,7 +433,7 @@ export default async function AdminDashboardPage() {
                                         <TableCell className="text-right space-x-2">
                                             <Dialog>
                                                 <DialogTrigger asChild><Button variant="outline" size="icon"><Edit className="h-4 w-4" /></Button></DialogTrigger>
-                                                <DialogContent className="sm:max-w-lg">
+                                                <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
                                                     <DialogHeader>
                                                         <DialogTitle>Edit Glossary Term</DialogTitle>
                                                         <DialogDescription>Update the term "{term.term}".</DialogDescription>

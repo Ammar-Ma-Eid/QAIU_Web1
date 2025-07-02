@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { format } from "date-fns"
+import Image from "next/image"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -28,7 +29,7 @@ const formSchema = z.object({
   }),
   excerpt: z.string().min(10, "Excerpt must be at least 10 characters."),
   content: z.string().min(20, "Content must be at least 20 characters."),
-  imageUrl: z.string().url("Image URL must be a valid URL."),
+  imageUrl: z.string().min(1, "An image is required."),
   dataAiHint: z.string().optional(),
 })
 
@@ -48,7 +49,7 @@ export function BlogPostForm({ post }: BlogPostFormProps) {
       date: post ? format(new Date(post.date), "yyyy-MM-dd'T'HH:mm") : "",
       excerpt: post?.excerpt || "",
       content: post?.content || "",
-      imageUrl: post?.imageUrl || "https://placehold.co/1200x600",
+      imageUrl: post?.imageUrl || "",
       dataAiHint: post?.dataAiHint || "",
     },
   })
@@ -81,6 +82,8 @@ export function BlogPostForm({ post }: BlogPostFormProps) {
       })
     }
   }
+
+  const imageUrl = form.watch("imageUrl")
 
   return (
     <Form {...form}>
@@ -150,19 +153,39 @@ export function BlogPostForm({ post }: BlogPostFormProps) {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="imageUrl"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Feature Image URL</FormLabel>
-              <FormControl>
-                <Input placeholder="https://placehold.co/1200x600" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+        <FormItem>
+          <FormLabel>Feature Image</FormLabel>
+          <FormControl>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    form.setValue("imageUrl", reader.result as string);
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+              className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+            />
+          </FormControl>
+          {imageUrl && (
+            <div className="mt-4">
+              <p className="text-sm text-muted-foreground mb-2">Image Preview:</p>
+              <Image
+                src={imageUrl}
+                alt="Image preview"
+                width={100}
+                height={100}
+                className="rounded-md object-cover"
+              />
+            </div>
           )}
-        />
+          <FormMessage />
+        </FormItem>
         <FormField
           control={form.control}
           name="dataAiHint"

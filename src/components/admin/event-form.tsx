@@ -5,6 +5,7 @@ import { useForm, useFieldArray } from "react-hook-form"
 import * as z from "zod"
 import { format } from "date-fns"
 import { PlusCircle, Trash2 } from "lucide-react"
+import Image from "next/image"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -29,10 +30,10 @@ const formSchema = z.object({
   }),
   description: z.string().min(10, "Description must be at least 10 characters."),
   location: z.string().min(2, "Location must be at least 2 characters."),
-  imageUrl: z.string().url("Image URL must be a valid URL."),
+  imageUrl: z.string().min(1, "An image is required."),
   dataAiHint: z.string().optional(),
   gallery: z.array(z.object({
-    src: z.string().url({ message: "Must be a valid URL." }),
+    src: z.string().min(1, { message: "Image is required." }),
     alt: z.string().min(1, { message: "Alt text cannot be empty." }),
     dataAiHint: z.string().optional(),
   })).optional(),
@@ -53,7 +54,7 @@ export function EventForm({ event }: EventFormProps) {
       date: event ? format(new Date(event.date), "yyyy-MM-dd'T'HH:mm") : "",
       description: event?.description || "",
       location: event?.location || "",
-      imageUrl: event?.imageUrl || "https://placehold.co/1200x600",
+      imageUrl: event?.imageUrl || "",
       dataAiHint: event?.dataAiHint || "",
       gallery: event?.gallery || [],
     },
@@ -92,6 +93,8 @@ export function EventForm({ event }: EventFormProps) {
       })
     }
   }
+
+  const imageUrl = form.watch("imageUrl");
 
   return (
     <Form {...form}>
@@ -148,19 +151,39 @@ export function EventForm({ event }: EventFormProps) {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="imageUrl"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Main Image URL</FormLabel>
-              <FormControl>
-                <Input placeholder="https://placehold.co/1200x600" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+        <FormItem>
+          <FormLabel>Main Image</FormLabel>
+          <FormControl>
+             <Input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    form.setValue("imageUrl", reader.result as string);
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+              className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+            />
+          </FormControl>
+          {imageUrl && (
+            <div className="mt-4">
+              <p className="text-sm text-muted-foreground mb-2">Image Preview:</p>
+              <Image
+                src={imageUrl}
+                alt="Image preview"
+                width={100}
+                height={100}
+                className="rounded-md object-cover"
+              />
+            </div>
           )}
-        />
+          <FormMessage />
+        </FormItem>
          <FormField
           control={form.control}
           name="dataAiHint"
@@ -185,67 +208,90 @@ export function EventForm({ event }: EventFormProps) {
                 {fields.length === 0 && (
                     <p className="text-sm text-center text-muted-foreground py-4">No gallery images added.</p>
                 )}
-                {fields.map((field, index) => (
-                    <div key={field.id} className="p-4 border rounded-md relative bg-background shadow-sm">
-                        <div className="space-y-4">
-                            <FormField
-                                control={form.control}
-                                name={`gallery.${index}.src`}
-                                render={({ field }) => (
-                                    <FormItem>
-                                    <FormLabel>Image URL</FormLabel>
+                {fields.map((field, index) => {
+                    const galleryImageUrl = form.watch(`gallery.${index}.src`);
+                    return (
+                        <div key={field.id} className="p-4 border rounded-md relative bg-background shadow-sm">
+                            <div className="space-y-4">
+                                <FormItem>
+                                    <FormLabel>Image</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="https://placehold.co/800x600" {...field} />
+                                        <Input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                                const file = e.target.files?.[0];
+                                                if (file) {
+                                                    const reader = new FileReader();
+                                                    reader.onloadend = () => {
+                                                        form.setValue(`gallery.${index}.src`, reader.result as string);
+                                                    };
+                                                    reader.readAsDataURL(file);
+                                                }
+                                            }}
+                                            className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                                        />
                                     </FormControl>
+                                     {galleryImageUrl && (
+                                    <div className="mt-2">
+                                        <Image
+                                            src={galleryImageUrl}
+                                            alt="Gallery image preview"
+                                            width={80}
+                                            height={80}
+                                            className="rounded-md object-cover"
+                                        />
+                                    </div>
+                                    )}
                                     <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name={`gallery.${index}.alt`}
-                                render={({ field }) => (
-                                    <FormItem>
-                                    <FormLabel>Alt Text</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="A description of the image" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                             <FormField
-                                control={form.control}
-                                name={`gallery.${index}.dataAiHint`}
-                                render={({ field }) => (
-                                    <FormItem>
-                                    <FormLabel>Image AI Hint (Optional)</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="e.g. students presenting" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                                </FormItem>
+
+                                <FormField
+                                    control={form.control}
+                                    name={`gallery.${index}.alt`}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                        <FormLabel>Alt Text</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="A description of the image" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name={`gallery.${index}.dataAiHint`}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                        <FormLabel>Image AI Hint (Optional)</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="e.g. students presenting" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                            <Button
+                                type="button"
+                                variant="ghost"
+                                size="icon"
+                                className="absolute top-1 right-1 text-destructive hover:text-destructive hover:bg-destructive/10 h-8 w-8"
+                                onClick={() => remove(index)}
+                            >
+                                <span className="sr-only">Remove Image</span>
+                                <Trash2 className="h-4 w-4" />
+                            </Button>
                         </div>
-                        <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            className="absolute top-1 right-1 text-destructive hover:text-destructive hover:bg-destructive/10 h-8 w-8"
-                            onClick={() => remove(index)}
-                        >
-                            <span className="sr-only">Remove Image</span>
-                            <Trash2 className="h-4 w-4" />
-                        </Button>
-                    </div>
-                ))}
+                    );
+                })}
                  <Button
                     type="button"
                     variant="outline"
                     size="sm"
                     className="mt-2"
-                    onClick={() => append({ src: 'https://placehold.co/800x600', alt: '', dataAiHint: '' })}
+                    onClick={() => append({ src: '', alt: '', dataAiHint: '' })}
                 >
                     <PlusCircle className="mr-2 h-4 w-4" />
                     Add Gallery Image
