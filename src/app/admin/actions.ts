@@ -15,7 +15,7 @@ async function getDb() {
 export async function addMember(data: any) {
   const db = await getDb();
   await db.collection('members').insertOne(data);
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
   revalidatePath('/about');
 }
 
@@ -30,7 +30,7 @@ export async function updateMember(id: string, data: any) {
   }
   const db = await getDb();
   await db.collection('members').updateOne({ _id: new ObjectId(id) }, { $set: data });
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
   revalidatePath('/about');
 }
 
@@ -44,7 +44,7 @@ export async function deleteMember(id: string) {
   }
   const db = await getDb();
   await db.collection('members').deleteOne({ _id: new ObjectId(id) });
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
   revalidatePath('/about');
 }
 
@@ -53,7 +53,7 @@ export async function addEvent(data: any) {
   const db = await getDb();
   // The gallery is not managed by the form, so we add a default empty array.
   await db.collection('events').insertOne({ ...data, gallery: [] });
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
   revalidatePath('/events');
 }
 
@@ -63,7 +63,7 @@ export async function updateEvent(id: string, data: any) {
   }
   const db = await getDb();
   await db.collection('events').updateOne({ _id: new ObjectId(id) }, { $set: data });
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
   revalidatePath('/events');
 }
 
@@ -73,7 +73,7 @@ export async function deleteEvent(id: string) {
   }
   const db = await getDb();
   await db.collection('events').deleteOne({ _id: new ObjectId(id) });
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
   revalidatePath('/events');
 }
 
@@ -81,7 +81,7 @@ export async function deleteEvent(id: string) {
 export async function addBlogPost(data: any) {
   const db = await getDb();
   await db.collection('blogPosts').insertOne(data);
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
   revalidatePath('/blog');
 }
 
@@ -91,7 +91,7 @@ export async function updateBlogPost(id: string, data: any) {
   }
   const db = await getDb();
   await db.collection('blogPosts').updateOne({ _id: new ObjectId(id) }, { $set: data });
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
   revalidatePath('/blog');
 }
 
@@ -101,7 +101,7 @@ export async function deleteBlogPost(id: string) {
   }
   const db = await getDb();
   await db.collection('blogPosts').deleteOne({ _id: new ObjectId(id) });
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
   revalidatePath('/blog');
 }
 
@@ -109,7 +109,7 @@ export async function deleteBlogPost(id: string) {
 export async function addGlossaryTerm(data: any) {
   const db = await getDb();
   await db.collection('glossaryTerms').insertOne(data);
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
   revalidatePath('/glossary');
 }
 
@@ -119,7 +119,7 @@ export async function updateGlossaryTerm(id: string, data: any) {
   }
   const db = await getDb();
   await db.collection('glossaryTerms').updateOne({ _id: new ObjectId(id) }, { $set: data });
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
   revalidatePath('/glossary');
 }
 
@@ -129,6 +129,6 @@ export async function deleteGlossaryTerm(id: string) {
   }
   const db = await getDb();
   await db.collection('glossaryTerms').deleteOne({ _id: new ObjectId(id) });
-  revalidatePath('/admin');
+  revalidatePath('/admin', 'layout');
   revalidatePath('/glossary');
 }

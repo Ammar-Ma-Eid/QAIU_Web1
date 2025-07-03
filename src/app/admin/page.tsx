@@ -32,6 +32,7 @@ import { BlogPostForm } from '@/components/admin/blog-post-form';
 import { GlossaryTermForm } from '@/components/admin/glossary-term-form';
 import { deleteMember, deleteEvent, deleteBlogPost, deleteGlossaryTerm } from './actions';
 import { DeleteButton } from '@/components/admin/delete-button';
+import { RefreshButton } from '@/components/admin/refresh-button';
 
 export default async function AdminDashboardPage() {
   const [members, upcomingEvents, pastEvents, blogPosts, glossaryTerms] = await Promise.all([
@@ -59,12 +60,15 @@ export default async function AdminDashboardPage() {
                 Manage your website's content.
               </p>
             </div>
-            <form action={logout}>
-              <Button type="submit" variant="outline">
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-              </Button>
-            </form>
+            <div className="flex items-center gap-4">
+              <RefreshButton />
+              <form action={logout}>
+                <Button type="submit" variant="outline">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logout
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
