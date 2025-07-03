@@ -34,6 +34,8 @@ import { DeleteButton } from '@/components/admin/delete-button';
 import { RefreshButton } from '@/components/admin/refresh-button';
 import { LogoutButton } from '@/components/admin/logout-button';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboardPage() {
   const [members, upcomingEvents, pastEvents, blogPosts, glossaryTerms] = await Promise.all([
     getMembers(),
