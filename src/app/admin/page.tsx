@@ -14,23 +14,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
 import { MemberForm } from '@/components/admin/member-form';
 import { EventForm } from '@/components/admin/event-form';
 import { BlogPostForm } from '@/components/admin/blog-post-form';
 import { GlossaryTermForm } from '@/components/admin/glossary-term-form';
 import { deleteMember, deleteEvent, deleteBlogPost, deleteGlossaryTerm } from './actions';
-import { DeleteButton } from '@/components/admin/delete-button';
+import { DeleteConfirmationDialog } from '@/components/admin/delete-confirmation-dialog';
 import { RefreshButton } from '@/components/admin/refresh-button';
 import { LogoutButton } from '@/components/admin/logout-button';
 
@@ -196,27 +185,15 @@ export default async function AdminDashboardPage() {
                                                     <MemberForm member={member} />
                                                 </DialogContent>
                                             </Dialog>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger asChild>
-                                                    <Button variant="outline" size="icon" className="text-destructive hover:text-destructive hover:bg-destructive/10">
-                                                        <Trash2 className="h-4 w-4" />
-                                                    </Button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                                        <AlertDialogDescription>
-                                                            This action cannot be undone. This will permanently delete {member.name} from the database.
-                                                        </AlertDialogDescription>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <form action={deleteMember.bind(null, member.id)}>
-                                                            <DeleteButton />
-                                                        </form>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
+                                            <DeleteConfirmationDialog
+                                              trigger={
+                                                <Button variant="outline" size="icon" className="text-destructive hover:text-destructive hover:bg-destructive/10">
+                                                  <Trash2 className="h-4 w-4" />
+                                                </Button>
+                                              }
+                                              description={`This action cannot be undone. This will permanently delete ${member.name} from the database.`}
+                                              deleteAction={deleteMember.bind(null, member.id)}
+                                            />
                                         </TableCell>
                                     </TableRow>
                                 ))) : (
@@ -290,21 +267,15 @@ export default async function AdminDashboardPage() {
                                                         <EventForm event={event} />
                                                     </DialogContent>
                                                 </Dialog>
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger asChild><Button variant="outline" size="icon" className="text-destructive hover:text-destructive hover:bg-destructive/10"><Trash2 className="h-4 w-4" /></Button></AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                                            <AlertDialogDescription>This will permanently delete "{event.title}" from the database.</AlertDialogDescription>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <form action={deleteEvent.bind(null, event.id)}>
-                                                                <DeleteButton />
-                                                            </form>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
+                                                <DeleteConfirmationDialog
+                                                  trigger={
+                                                    <Button variant="outline" size="icon" className="text-destructive hover:text-destructive hover:bg-destructive/10">
+                                                      <Trash2 className="h-4 w-4" />
+                                                    </Button>
+                                                  }
+                                                  description={`This will permanently delete "${event.title}" from the database.`}
+                                                  deleteAction={deleteEvent.bind(null, event.id)}
+                                                />
                                             </TableCell>
                                         </TableRow>
                                     ))) : (
@@ -369,21 +340,15 @@ export default async function AdminDashboardPage() {
                                                     <BlogPostForm post={post} />
                                                 </DialogContent>
                                             </Dialog>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger asChild><Button variant="outline" size="icon" className="text-destructive hover:text-destructive hover:bg-destructive/10"><Trash2 className="h-4 w-4" /></Button></AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                                        <AlertDialogDescription>This will permanently delete "{post.title}" from the database.</AlertDialogDescription>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <form action={deleteBlogPost.bind(null, post.id)}>
-                                                            <DeleteButton />
-                                                        </form>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
+                                            <DeleteConfirmationDialog
+                                              trigger={
+                                                <Button variant="outline" size="icon" className="text-destructive hover:text-destructive hover:bg-destructive/10">
+                                                  <Trash2 className="h-4 w-4" />
+                                                </Button>
+                                              }
+                                              description={`This will permanently delete "${post.title}" from the database.`}
+                                              deleteAction={deleteBlogPost.bind(null, post.id)}
+                                            />
                                         </TableCell>
                                     </TableRow>
                                 ))) : (
@@ -442,21 +407,15 @@ export default async function AdminDashboardPage() {
                                                     <GlossaryTermForm term={term} />
                                                 </DialogContent>
                                             </Dialog>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger asChild><Button variant="outline" size="icon" className="text-destructive hover:text-destructive hover:bg-destructive/10"><Trash2 className="h-4 w-4" /></Button></AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                                        <AlertDialogDescription>This will permanently delete "{term.term}" from the glossary.</AlertDialogDescription>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <form action={deleteGlossaryTerm.bind(null, term.id)}>
-                                                            <DeleteButton />
-                                                        </form>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
+                                            <DeleteConfirmationDialog
+                                              trigger={
+                                                <Button variant="outline" size="icon" className="text-destructive hover:text-destructive hover:bg-destructive/10">
+                                                  <Trash2 className="h-4 w-4" />
+                                                </Button>
+                                              }
+                                              description={`This will permanently delete "${term.term}" from the glossary.`}
+                                              deleteAction={deleteGlossaryTerm.bind(null, term.id)}
+                                            />
                                         </TableCell>
                                     </TableRow>
                                 ))) : (
