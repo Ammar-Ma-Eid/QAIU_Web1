@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import { useRef } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -21,6 +22,7 @@ import { useToast } from "@/hooks/use-toast"
 import { addGlossaryTerm, updateGlossaryTerm } from "@/app/admin/actions"
 import type { GlossaryTerm } from "@/lib/types"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { DialogClose } from "@/components/ui/dialog"
 
 
 const formSchema = z.object({
@@ -41,6 +43,7 @@ const categories = ["Fundamental Concept", "Algorithm", "Hardware", "Theory"];
 
 export function GlossaryTermForm({ term: glossaryTerm }: GlossaryTermFormProps) {
   const { toast } = useToast()
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
   const form = useForm<GlossaryTermFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,6 +70,7 @@ export function GlossaryTermForm({ term: glossaryTerm }: GlossaryTermFormProps) 
           description: `The term "${data.term}" has been added.`,
         })
       }
+      closeButtonRef.current?.click()
     } catch (error) {
        toast({
         title: "An Error Occurred",
@@ -77,98 +81,103 @@ export function GlossaryTermForm({ term: glossaryTerm }: GlossaryTermFormProps) 
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="term"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Term</FormLabel>
-              <FormControl>
-                <Input placeholder="e.g. Qubit" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="category"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Category</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a category" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {categories.map(cat => (
-                        <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="definition"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Definition</FormLabel>
-              <FormControl>
-                <Textarea placeholder="Explain the term..." {...field} rows={5} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="featured"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                <FormLabel>
-                  Feature on homepage
-                </FormLabel>
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="term"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Term</FormLabel>
+                <FormControl>
+                  <Input placeholder="e.g. Qubit" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="category"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Category</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a category" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {categories.map(cat => (
+                          <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="definition"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Definition</FormLabel>
+                <FormControl>
+                  <Textarea placeholder="Explain the term..." {...field} rows={5} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="featured"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel>
+                    Feature on homepage
+                  </FormLabel>
+                  <FormDescription>
+                    If checked, this term may appear on the homepage.
+                  </FormDescription>
+                </div>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="icon"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Icon Name (Optional)</FormLabel>
+                <FormControl>
+                  <Input placeholder="e.g. layers" {...field} value={field.value ?? ''} />
+                </FormControl>
                 <FormDescription>
-                  If checked, this term may appear on the homepage.
+                  A lucide-react icon name to display for this term if featured.
                 </FormDescription>
-              </div>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="icon"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Icon Name (Optional)</FormLabel>
-              <FormControl>
-                <Input placeholder="e.g. layers" {...field} value={field.value ?? ''} />
-              </FormControl>
-              <FormDescription>
-                A lucide-react icon name to display for this term if featured.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" disabled={form.formState.isSubmitting}>
-            {form.formState.isSubmitting ? 'Saving...' : 'Save Changes'}
-        </Button>
-      </form>
-    </Form>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" disabled={form.formState.isSubmitting}>
+              {form.formState.isSubmitting ? 'Saving...' : 'Save Changes'}
+          </Button>
+        </form>
+      </Form>
+      <DialogClose asChild>
+        <button ref={closeButtonRef} className="hidden" />
+      </DialogClose>
+    </>
   )
 }
