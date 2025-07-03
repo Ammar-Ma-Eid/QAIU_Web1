@@ -12,7 +12,6 @@ const navLinks = [
   { href: '/events', label: 'Events' },
   { href: '/blog', label: 'Blog' },
   { href: '/glossary', label: 'Glossary' },
-  { href: '/contact', label: 'Contact' },
 ];
 
 const Header = () => {
