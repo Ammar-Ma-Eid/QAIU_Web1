@@ -3,9 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getMembers, getUpcomingEvents, getPastEvents, getBlogPosts, getGlossaryTerms } from '@/lib/data';
 import { format } from 'date-fns';
-import { Users, Calendar, BarChart3, LogOut, PlusCircle, Edit, Trash2, Newspaper, Link as LinkIcon, BookMarked } from 'lucide-react';
+import { Users, Calendar, BarChart3, PlusCircle, Edit, Trash2, Newspaper, Link as LinkIcon, BookMarked } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { logout } from '@/app/login/actions';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
@@ -33,6 +32,7 @@ import { GlossaryTermForm } from '@/components/admin/glossary-term-form';
 import { deleteMember, deleteEvent, deleteBlogPost, deleteGlossaryTerm } from './actions';
 import { DeleteButton } from '@/components/admin/delete-button';
 import { RefreshButton } from '@/components/admin/refresh-button';
+import { LogoutButton } from '@/components/admin/logout-button';
 
 export default async function AdminDashboardPage() {
   const [members, upcomingEvents, pastEvents, blogPosts, glossaryTerms] = await Promise.all([
@@ -62,12 +62,7 @@ export default async function AdminDashboardPage() {
             </div>
             <div className="flex items-center gap-4">
               <RefreshButton />
-              <form action={logout}>
-                <Button type="submit" variant="outline">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Logout
-                </Button>
-              </form>
+              <LogoutButton />
             </div>
           </div>
         </div>
