@@ -26,7 +26,7 @@ const formSchema = z.object({
   role: z.string().min(2, "Role must be at least 2 characters."),
   email: z.string().email("Invalid email address."),
   linkedinUrl: z.string().url("Please enter a valid URL.").or(z.literal("")).optional(),
-  imageUrl: z.string().min(1, "An image is required."),
+  imageUrl: z.string().optional(),
   dataAiHint: z.string().optional(),
 })
 
@@ -52,15 +52,19 @@ export function MemberForm({ member }: MemberFormProps) {
   })
 
   async function onSubmit(data: MemberFormValues) {
+    const submissionData = {
+      ...data,
+      imageUrl: data.imageUrl || 'https://placehold.co/400x400.png',
+    };
     try {
       if (member) {
-        await updateMember(member.id, data) 
+        await updateMember(member.id, submissionData) 
         toast({
           title: "Member Updated",
           description: `Details for ${data.name} have been updated.`,
         })
       } else {
-        await addMember(data)
+        await addMember(submissionData)
         toast({
           title: "Member Added",
           description: `${data.name} has been added to the team.`,
@@ -135,7 +139,7 @@ export function MemberForm({ member }: MemberFormProps) {
             )}
           />
           <FormItem>
-            <FormLabel>Image</FormLabel>
+            <FormLabel>Image (Optional)</FormLabel>
             <FormControl>
               <Input
                 type="file"

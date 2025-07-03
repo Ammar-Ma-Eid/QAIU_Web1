@@ -32,10 +32,10 @@ const formSchema = z.object({
   }),
   description: z.string().min(10, "Description must be at least 10 characters."),
   location: z.string().min(2, "Location must be at least 2 characters."),
-  imageUrl: z.string().min(1, "An image is required."),
+  imageUrl: z.string().optional(),
   dataAiHint: z.string().optional(),
   gallery: z.array(z.object({
-    src: z.string().min(1, { message: "Image is required." }),
+    src: z.string().optional(),
     alt: z.string().min(1, { message: "Alt text cannot be empty." }),
     dataAiHint: z.string().optional(),
   })).optional(),
@@ -71,7 +71,9 @@ export function EventForm({ event }: EventFormProps) {
   async function onSubmit(data: EventFormValues) {
     const submissionData = {
         ...data,
-        date: new Date(data.date).toISOString()
+        date: new Date(data.date).toISOString(),
+        imageUrl: data.imageUrl || 'https://placehold.co/800x400.png',
+        gallery: data.gallery?.filter(item => item.src && item.src.length > 0),
     };
     
     try {
@@ -157,7 +159,7 @@ export function EventForm({ event }: EventFormProps) {
             )}
           />
           <FormItem>
-            <FormLabel>Main Image</FormLabel>
+            <FormLabel>Main Image (Optional)</FormLabel>
             <FormControl>
               <Input
                 type="file"

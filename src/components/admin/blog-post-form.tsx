@@ -31,7 +31,7 @@ const formSchema = z.object({
   }),
   excerpt: z.string().min(10, "Excerpt must be at least 10 characters."),
   content: z.string().min(20, "Content must be at least 20 characters."),
-  imageUrl: z.string().min(1, "An image is required."),
+  imageUrl: z.string().optional(),
   dataAiHint: z.string().optional(),
 })
 
@@ -61,6 +61,7 @@ export function BlogPostForm({ post }: BlogPostFormProps) {
     const submissionData = {
       ...data,
       date: new Date(data.date).toISOString(),
+      imageUrl: data.imageUrl || 'https://placehold.co/800x400.png',
     }
     
     try {
@@ -159,7 +160,7 @@ export function BlogPostForm({ post }: BlogPostFormProps) {
             )}
           />
           <FormItem>
-            <FormLabel>Feature Image</FormLabel>
+            <FormLabel>Feature Image (Optional)</FormLabel>
             <FormControl>
               <Input
                 type="file"
