@@ -1,3 +1,4 @@
+
 'use client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -30,6 +31,7 @@ const Header = () => {
               key={link.href}
               href={link.href}
               className="transition-colors hover:text-primary"
+              prefetch={true}
             >
               {link.label}
             </Link>
