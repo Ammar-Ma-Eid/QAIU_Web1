@@ -57,7 +57,7 @@ export async function deleteMember(id: string) {
 export async function addEvent(data: any) {
   const db = await getDb();
   // The gallery is not managed by the form, so we add a default empty array.
-  await db.collection('events').insertOne({ ...data, gallery: [] });
+  await db.collection('events').insertOne({ ...data, gallery: data.gallery || [] });
   revalidatePath('/admin', 'layout');
   revalidatePath('/events');
 }
@@ -70,6 +70,7 @@ export async function updateEvent(id: string, data: any) {
   await db.collection('events').updateOne({ _id: new ObjectId(id) }, { $set: data });
   revalidatePath('/admin', 'layout');
   revalidatePath('/events');
+  revalidatePath(`/events/${id}`);
 }
 
 export async function deleteEvent(id: string) {
@@ -103,6 +104,7 @@ export async function updateBlogPost(id: string, data: any) {
   await db.collection('blogPosts').updateOne({ _id: new ObjectId(id) }, { $set: data });
   revalidatePath('/admin', 'layout');
   revalidatePath('/blog');
+  revalidatePath(`/blog/${id}`);
 }
 
 export async function deleteBlogPost(id: string) {

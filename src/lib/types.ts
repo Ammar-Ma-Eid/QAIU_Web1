@@ -9,7 +9,7 @@ export type Member = {
 };
 
 export type Event = {
-  id: string;
+  id:string;
   title: string;
   date: string; // ISO string
   description: string;
