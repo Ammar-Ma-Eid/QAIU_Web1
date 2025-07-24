@@ -139,7 +139,7 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
   return (
     <canvas
       ref={canvasRef}
-      className={cn('absolute inset-0 w-full h-full opacity-20 pointer-events-none', className)}
+      className={cn('absolute inset-0 w-full h-full opacity-20 pointer-events-none z-10', className)}
     />
   );
 };

@@ -35,7 +35,7 @@ export default function RootLayout({
     <html lang="en" className="!scroll-smooth">
       <body className={cn('font-body antialiased', fontBody.variable, fontHeadline.variable)}>
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main>{children}</main>
         <Footer />
         <Toaster />
         <GlobalLoader />

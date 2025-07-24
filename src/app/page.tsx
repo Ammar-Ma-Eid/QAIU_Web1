@@ -45,17 +45,17 @@ export default async function Home() {
 
   return (
     <div className="relative w-full overflow-hidden">
-      <ClientInteractiveBackground />
       <section className="relative">
-        <div className="absolute inset-0 z-0 opacity-10">
+        <div className="absolute inset-0 z-0">
             <Image
                 src="https://placehold.co/1600x900.png"
                 alt="Quantum computer background"
                 fill
-                className="object-cover"
+                className="object-cover opacity-10"
                 data-ai-hint="quantum computer"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+            <ClientInteractiveBackground />
         </div>
         <div className="relative z-10 container mx-auto px-4 py-20 md:py-32 text-center">
           <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">
