@@ -8,6 +8,7 @@ import { Inter, Space_Grotesk as SpaceGrotesk } from 'next/font/google';
 import GlobalLoader from '@/components/global-loader';
 import { NavigationEvents } from '@/components/navigation-events';
 import { Suspense } from 'react';
+import ClientInteractiveBackground from '@/components/client-interactive-background';
 
 const fontBody = Inter({
   subsets: ['latin'],
@@ -34,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="!scroll-smooth">
       <body className={cn('font-body antialiased', fontBody.variable, fontHeadline.variable)}>
+        <ClientInteractiveBackground />
         <Header />
         <main>{children}</main>
         <Footer />

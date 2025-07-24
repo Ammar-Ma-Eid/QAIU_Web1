@@ -37,16 +37,16 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
       canvas.height = canvas.offsetHeight * dpr;
       ctx.scale(dpr, dpr);
       
-      const particleCount = Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 25000);
+      const particleCount = Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 10000);
       particles = [];
       for (let i = 0; i < particleCount; i++) {
-        const isAtom = Math.random() < 0.15; // 15% chance to be an atom
+        const isAtom = Math.random() < 0.20; // 20% chance to be an atom
         particles.push({
           x: Math.random() * canvas.offsetWidth,
           y: Math.random() * canvas.offsetHeight,
           vx: (Math.random() - 0.5) * 0.3,
           vy: (Math.random() - 0.5) * 0.3,
-          radius: isAtom ? Math.random() * 2 + 3 : Math.random() * 2 + 1,
+          radius: isAtom ? Math.random() * 3 + 4 : Math.random() * 2 + 2,
           type: isAtom ? 'atom' : 'dot',
           rotation: Math.random() * Math.PI * 2,
           rotationSpeed: (Math.random() - 0.5) * 0.02,
@@ -80,7 +80,7 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
 
           ctx.strokeStyle = particleColor;
           ctx.fillStyle = particleColor;
-          ctx.lineWidth = 0.6;
+          ctx.lineWidth = 0.8;
 
           // Draw nucleus
           ctx.beginPath();
@@ -139,7 +139,7 @@ const InteractiveBackground = ({ className }: { className?: string }) => {
   return (
     <canvas
       ref={canvasRef}
-      className={cn('absolute inset-0 w-full h-full opacity-20 pointer-events-none z-10', className)}
+      className={cn('fixed inset-0 w-full h-full opacity-20 pointer-events-none z-[-1]', className)}
     />
   );
 };

@@ -5,14 +5,12 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 import Image from 'next/image';
-import ClientInteractiveBackground from '@/components/client-interactive-background';
 
 export default async function BlogPage() {
   const blogPosts = await getBlogPosts();
 
   return (
     <div className="relative overflow-hidden">
-      <ClientInteractiveBackground />
       <div className="relative container mx-auto px-4 py-16 md:py-24">
         <div className="text-center mb-16">
           <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tighter">Our Blog</h1>

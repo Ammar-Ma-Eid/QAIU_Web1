@@ -4,7 +4,6 @@ import { getUpcomingEvents, getPastEvents } from '@/lib/data';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import ClientInteractiveBackground from '@/components/client-interactive-background';
 
 export default async function EventsPage() {
   const upcomingEvents = await getUpcomingEvents();
@@ -12,7 +11,6 @@ export default async function EventsPage() {
 
   return (
     <div className="relative overflow-hidden">
-      <ClientInteractiveBackground />
       <div className="relative container mx-auto px-4 py-16 md:py-24">
         <div className="text-center mb-16">
           <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tighter">Events</h1>

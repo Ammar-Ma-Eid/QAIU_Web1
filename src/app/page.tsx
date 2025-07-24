@@ -3,7 +3,6 @@ import { ArrowRight, BrainCircuit, CheckCircle, Calendar, FlaskConical, Code } f
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import ClientInteractiveBackground from '@/components/client-interactive-background';
 import { getUpcomingEvents, getFeaturedGlossaryTerms } from '@/lib/data';
 import { format } from 'date-fns';
 import { ContactForm } from '@/components/contact-form';
@@ -56,7 +55,7 @@ export default async function Home() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
         </div>
-        <ClientInteractiveBackground />
+        
         <div className="relative z-10 container mx-auto px-4 py-20 md:py-32 text-center">
           <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">
             Quantum computing at <span className="text-primary">Alamein International University</span>

@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getMembers } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
-import ClientInteractiveBackground from '@/components/client-interactive-background';
 import { Linkedin, Mail, MapPin, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -14,7 +13,6 @@ export default async function AboutPage() {
 
   return (
     <div className="relative overflow-hidden">
-      <ClientInteractiveBackground />
       <div className="relative container mx-auto px-4 py-16 md:py-24">
         <div className="text-center mb-16">
           <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tighter">About QAIU</h1>

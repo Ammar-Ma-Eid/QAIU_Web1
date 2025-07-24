@@ -1,12 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { ContactForm } from '@/components/contact-form'
-import ClientInteractiveBackground from "@/components/client-interactive-background"
 
 export default function ContactPage() {
   return (
     <div className="bg-secondary relative overflow-hidden">
-      <ClientInteractiveBackground />
       <div className="relative container mx-auto px-4 py-16 md:py-24">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tighter">GET IN TOUCH WITH US</h1>
