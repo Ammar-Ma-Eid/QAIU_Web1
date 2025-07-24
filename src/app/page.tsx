@@ -47,7 +47,7 @@ export default async function Home() {
     <div className="relative w-full overflow-hidden">
       <ClientInteractiveBackground />
       <section className="relative">
-        <div className="absolute inset-0 z-0 opacity-20">
+        <div className="absolute inset-0 z-0 opacity-10">
             <Image
                 src="https://placehold.co/1600x900.png"
                 alt="Quantum computer background"
@@ -55,7 +55,7 @@ export default async function Home() {
                 className="object-cover"
                 data-ai-hint="quantum computer"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
         </div>
         <div className="relative z-10 container mx-auto px-4 py-20 md:py-32 text-center">
           <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">
@@ -167,7 +167,7 @@ export default async function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {quantumJobs.map((job, index) => (
             <div key={index} className="group relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-secondary rounded-lg blur opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-secondary rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
                 <Card className="relative flex flex-col bg-card/80 backdrop-blur-sm shadow-lg overflow-hidden h-full p-1">
                     <div className="absolute inset-0 opacity-10 bg-[url(/grid.svg)] [background-position:10px_10px]"></div>
                     <CardHeader className="relative">
