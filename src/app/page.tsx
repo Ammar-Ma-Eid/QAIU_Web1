@@ -167,7 +167,7 @@ export default async function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {quantumJobs.map((job, index) => (
             <div key={index} className="group relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-accent to-secondary rounded-lg blur opacity-10 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-accent rounded-lg blur opacity-10 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
                 <Card className="relative flex flex-col bg-card/80 backdrop-blur-sm shadow-lg overflow-hidden h-full p-1">
                     <div className="absolute inset-0 opacity-10 bg-[url(/grid.svg)] [background-position:10px_10px]"></div>
                     <CardHeader className="relative">
