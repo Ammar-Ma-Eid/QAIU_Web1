@@ -15,11 +15,12 @@ export async function login(prevState: State | undefined, formData: FormData): P
   if (username === 'adminQAIU_2025' && password === 'QAIU_adminpassword_2025') {
     // This is a simplified secret token for demonstration.
     // In a real application, you should use a more secure session management strategy.
+    const expires = new Date(Date.now() + 24 * 60 * 60 * 1000) // 1 day from now
     cookies().set('auth_token', 'QAIU_ADMIN_TOKEN_SECRET_2025', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       path: '/',
-      maxAge: 60 * 60 * 24, // 1 day
+      expires: expires,
     })
   } else {
     return { error: 'Invalid username or password. Please try again.' }
