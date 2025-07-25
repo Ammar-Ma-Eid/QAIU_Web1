@@ -3,9 +3,11 @@ import { revalidatePath } from 'next/cache'
 import clientPromise from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 
+const DB_NAME = process.env.MONGODB_DB || 'QAIU';
+
 async function getDb() {
   const client = await clientPromise;
-  return client.db();
+  return client.db(DB_NAME);
 }
 
 /**
