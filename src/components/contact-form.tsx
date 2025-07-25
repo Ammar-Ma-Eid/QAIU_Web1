@@ -34,22 +34,22 @@ export function ContactForm() {
     <form ref={formRef} action={formAction} className="space-y-6">
       <div>
         <Label htmlFor="name" className="sr-only">Your Name</Label>
-        <Input id="name" name="name" type="text" placeholder="Your Name" required />
+        <Input id="name" name="name" type="text" placeholder="Your Name" required aria-label="Your Name" />
          {state?.errors?.name && <p className="text-sm text-destructive mt-2">{state.errors.name[0]}</p>}
       </div>
       <div>
         <Label htmlFor="email" className="sr-only">Your Email</Label>
-        <Input id="email" name="email" type="email" placeholder="Your Email" required />
+        <Input id="email" name="email" type="email" placeholder="Your Email" required aria-label="Your Email" />
          {state?.errors?.email && <p className="text-sm text-destructive mt-2">{state.errors.email[0]}</p>}
       </div>
       <div>
         <Label htmlFor="phone" className="sr-only">Your Phone</Label>
-        <Input id="phone" name="phone" type="tel" placeholder="Your Phone" />
+        <Input id="phone" name="phone" type="tel" placeholder="Your Phone" aria-label="Your Phone" />
          {state?.errors?.phone && <p className="text-sm text-destructive mt-2">{state.errors.phone[0]}</p>}
       </div>
       <div>
         <Label htmlFor="message" className="sr-only">Your Message</Label>
-        <Textarea id="message" name="message" placeholder="Your Message" required rows={5} />
+        <Textarea id="message" name="message" placeholder="Your Message" required rows={5} aria-label="Your Message" />
          {state?.errors?.message && <p className="text-sm text-destructive mt-2">{state.errors.message[0]}</p>}
       </div>
       
